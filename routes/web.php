@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customers\CustomerController;
+use App\Http\Controllers\Teams\TeamsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,12 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::get('/customers/show/{customer}', [CustomerController::class, 'show'])->name('customers.show');
+    Route::post('/customers/store', [CustomerController::class, 'store'])->name('customers.store');
+
+    Route::get('/teams/create', [TeamsController::class, 'create'])->name('teams.create');
+    Route::post('/teams/store', [TeamsController::class, 'store'])->name('teams.store');
+
 });

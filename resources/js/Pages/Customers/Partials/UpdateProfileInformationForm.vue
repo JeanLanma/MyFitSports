@@ -8,23 +8,25 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 const props = defineProps({
-    user: Object,
+    customer: Object,
 });
-
+console.log(props.customer);
 const form = useForm({
     _method: 'POST',
-    name: null,
-    email: null,
-    phone: null,
-    address: null,
-    age: null,
-    weight: null,
-    height: null,
-    gender: null,
-    size: null,
-    activity: null,
+    name: props.customer?.name ?? null,
+    email: props.customer?.email ?? null,
+    phone: props.customer?.phone ?? null,
+    address: props.customer?.address ?? null,
+    age: props.customer?.age ?? null,
+    weight: props.customer?.weight ?? null,
+    height: props.customer?.height ?? null,
+    gender: props.customer?.gender ?? null,
+    size: props.customer?.size ?? null,
+    activity: props.customer?.activity ?? null,
     status: null,
     photo: null,
 });
@@ -38,10 +40,14 @@ const updateProfileInformation = () => {
         form.photo = photoInput.value.files[0];
     }
 
-    form.post(route('user-profile-information.update'), {
+    form.post(route('customers.store'), {
         errorBag: 'updateProfileInformation',
         preserveScroll: true,
-        onSuccess: () => clearPhotoFileInput(),
+        onSuccess: () => {
+            clearPhotoFileInput(),
+            form.reset(),
+            toast.success('Cliente registrado con éxito.');
+        },
     });
 };
 
@@ -91,7 +97,7 @@ const clearPhotoFileInput = () => {
         </template>
 
         <template #description>
-            Registra la información del perfil y la foto.
+            Registra la información del cliente para poder ofrecer un mejor servicio.
         </template>
 
         <template #form>
@@ -199,7 +205,7 @@ const clearPhotoFileInput = () => {
             </div>
 
             <!-- Address -->
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="address" value="Dirección" />
                 <TextInput
                     id="address"
@@ -207,6 +213,7 @@ const clearPhotoFileInput = () => {
                     type="text"
                     class="mt-1 block w-full"
                     autocomplete="address"
+                    placeholder="Calle, número, colonia, ciudad, estado, código postal"
                 />
                 <InputError :message="form.errors.address" class="mt-2" />
             </div>
@@ -222,8 +229,23 @@ const clearPhotoFileInput = () => {
                         type="number"
                         class="mt-1 block w-full"
                         autocomplete="age"
+                        placeholder="Años"
                     />
                     <InputError :message="form.errors.age" class="mt-2" />
+                </div>
+
+                <!-- Gender -->
+                <div class="col-span-6 sm:col-span-3">
+                    <InputLabel for="gender" value="Genero" />
+                    <TextInput
+                        id="gender"
+                        v-model="form.gender"
+                        type="text"
+                        class="mt-1 block w-full"
+                        autocomplete="gender"
+                        placeholder="Masculino, Femenino, Otro..."
+                    />
+                    <InputError :message="form.errors.gender" class="mt-2" />
                 </div>
             
             </div>
@@ -231,59 +253,60 @@ const clearPhotoFileInput = () => {
             <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
                 <!-- Weight -->
                 <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="address" value="Peso" />
+                    <InputLabel for="weight" value="Peso" />
                     <TextInput
                         id="weight"
                         v-model="form.weight"
                         type="text"
                         class="mt-1 block w-full"
                         autocomplete="weight"
+                        placeholder="kg"
                     />
                     <InputError :message="form.errors.weight" class="mt-2" />
                 </div>
 
                 <!-- Height -->
                 <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="age" value="Altura" />
+                    <InputLabel for="height" value="Altura" />
                     <TextInput
                         id="height"
                         v-model="form.height"
                         type="number"
                         class="mt-1 block w-full"
                         autocomplete="height"
+                        placeholder="cm"
                     />
                     <InputError :message="form.errors.height" class="mt-2" />
                 </div>
-            
-            </div>
-            <!--  -->
-            <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
-                <!-- Gender -->
-                <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="address" value="Genero" />
-                    <TextInput
-                        id="gender"
-                        v-model="form.gender"
-                        type="text"
-                        class="mt-1 block w-full"
-                        autocomplete="gender"
-                    />
-                    <InputError :message="form.errors.gender" class="mt-2" />
-                </div>
 
-                <!-- Activity -->
+                <!-- Size -->
                 <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="age" value="Actividad fisica" />
+                    <InputLabel for="size" value="Talla" />
                     <TextInput
-                        id="activity"
-                        v-model="form.activity"
+                        id="size"
+                        v-model="form.size"
                         type="number"
                         class="mt-1 block w-full"
-                        autocomplete="activity"
+                        autocomplete="size"
+                        placeholder="cm"
                     />
-                    <InputError :message="form.errors.activity" class="mt-2" />
+                    <InputError :message="form.errors.size" class="mt-2" />
                 </div>
             
+            </div>
+
+            <!-- Activity -->
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="activity" value="Actividad fisica" />
+                <TextInput
+                    id="activity"
+                    v-model="form.activity"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="activity"
+                    placeholder="Deporte que practica"
+                />
+                <InputError :message="form.errors.activity" class="mt-2" />
             </div>
 
 
