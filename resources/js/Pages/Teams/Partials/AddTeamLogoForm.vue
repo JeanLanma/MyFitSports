@@ -1,12 +1,15 @@
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 import ActionMessage from '@/Components/ActionMessage.vue';
 import FormSection from '@/Components/FormSection.vue';
 import { useToast } from "vue-toastification";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { ref } from 'vue';
-import { isDefaultLogo as isDefault }   from '@/utils/TeamHelpers.js';
 
+
+const isDefaultLogo = (is = false) => {
+    return is;
+};
 const toast = useToast();
 
 const props = defineProps({
@@ -14,10 +17,7 @@ const props = defineProps({
 });
 
 const imgInput = ref(null);
-const isDefaultLogo = () => {
-    return isDefault(props.team.logo);
-    return (props.team.logo == '\\assets\\freetravelers-logo.jpg');
-};
+
 const form = useForm({
     name: props.team.name,
     image: null,
