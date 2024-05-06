@@ -47,7 +47,7 @@ const props = defineProps({
                                 </tr>
                             </thead>
                             <tbody v-if="props.customers?.data.length > 0" class="text-sm divide-y divide-gray-100">
-                                <tr v-for="customer in props.customers.data" :key="customer.id" class="h-14 hover:bg-sky-300">
+                                <tr v-for="customer in props.customers.data" :key="customer.id" class="h-14 hover:bg-sky-300 hover:shadow-md">
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="font-medium text-gray-800">{{ customer.name }}</div>
