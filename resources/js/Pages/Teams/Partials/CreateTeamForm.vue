@@ -6,10 +6,25 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useToast } from "vue-toastification";
+import { router } from '@inertiajs/vue3';
+
+const props = defineProps({
+    team: {
+        type: Object,
+        default: () => ({
+            name: null,
+            cover: null,
+            id: null,
+        }),
+    },
+});
+
 const toast = useToast();
 
 const form = useForm({
-    name: '',
+    name: props.team.name,
+    cover: props.team.cover,
+    id: props.team.id,
 });
 
 const createTeam = () => {
@@ -19,6 +34,7 @@ const createTeam = () => {
         onSuccess: () => {
             toast.success('El equipo se ha registrado exitosamente.');
             form.reset();
+            router.get(route('teams.index'));
         },
     });
 };

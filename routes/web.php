@@ -40,7 +40,9 @@ Route::middleware([
     Route::get('/customers/show/{customer}', [CustomerController::class, 'show'])->name('customers.show');
     Route::post('/customers/store', [CustomerController::class, 'store'])->name('customers.store');
 
+    Route::get('/teams', [TeamsController::class, 'index'])->name('teams.index');
     Route::get('/teams/create', [TeamsController::class, 'create'])->name('teams.create');
+    Route::get('/teams/show/{team_id?}', [TeamsController::class, 'show'])->name('teams.show');
     Route::post('/teams/store', [TeamsController::class, 'store'])->name('teams.store');
 
 });

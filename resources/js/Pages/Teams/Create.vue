@@ -1,6 +1,19 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import CreateTeamForm from '@/Pages/Teams/Partials/CreateTeamForm.vue';
+
+const props = defineProps({
+    errors: Object,
+    team: {
+        type: Object,
+        default: () => ({
+            name: '',
+            slug: '',
+            description: '',
+            personal_team: false,
+        }),
+    },
+});
 </script>
 
 <template>
