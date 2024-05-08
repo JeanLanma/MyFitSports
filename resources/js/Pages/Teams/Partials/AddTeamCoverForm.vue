@@ -15,8 +15,7 @@ const props = defineProps({
 
 const fileInput = ref(null);
 const handlePreview = (file = null) => {
-    const preview = (props.team.cover != null && file == null) ? `/storage/teams/${props.team.cover}` : URL.createObjectURL(file);
-    console.log(preview);
+    const preview = (props.team.cover != null && file == null) ? `/storage/teams/${props.team.cover}` : file;
     return preview;
 };
 const File = ref({

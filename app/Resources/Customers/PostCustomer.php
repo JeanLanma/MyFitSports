@@ -3,6 +3,7 @@
 namespace App\Resources\Customers;
 
 use App\Models\Customers\Customer;
+use App\Models\User;
 
 class PostCustomer
 {
@@ -11,7 +12,13 @@ class PostCustomer
         if (self::checkIfCustomerExists($request)) {
             return self::updateCustomer($request, self::checkIfCustomerExists($request));
         }
-        return Customer::create($request->all());;
+        $data = $request->all();
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt('12345678'),
+        ]);
+        return Customer::create($data);
     }
 
     public static function checkIfCustomerExists($request)

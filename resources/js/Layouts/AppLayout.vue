@@ -54,6 +54,9 @@ const logout = () => {
                                 <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
                                     Clientes
                                 </NavLink>
+                                <NavLink :href="route('teams.index')" :active="route().current('teams.*')">
+                                    Equipos
+                                </NavLink>
                             </div>
                         </div>
 
@@ -138,11 +141,15 @@ const logout = () => {
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            Mi cuenta
                                         </div>
 
                                         <DropdownLink :href="route('profile.show')">
                                             Perfil
+                                        </DropdownLink>
+
+                                        <DropdownLink :href="route('customers.show', $page.props.auth.user.id)">
+                                            Estadísticas
                                         </DropdownLink>
 
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
@@ -199,6 +206,9 @@ const logout = () => {
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('customers.index')" :active="route().current('customers.*')">
                             Customers
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('teams.index')" :active="route().current('teams.*')">
+                            Equipos
                         </ResponsiveNavLink>
                     </div>
 
