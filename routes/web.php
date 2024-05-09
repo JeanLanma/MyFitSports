@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Customers\CustomerController;
 use App\Http\Controllers\Teams\TeamsController;
+use App\Http\Controllers\Workouts\WorkoutController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,5 +45,7 @@ Route::middleware([
     Route::get('/teams/create', [TeamsController::class, 'create'])->name('teams.create');
     Route::get('/teams/show/{team_id?}', [TeamsController::class, 'show'])->name('teams.show');
     Route::post('/teams/store', [TeamsController::class, 'store'])->name('teams.store');
+
+    Route::get('/workouts', [WorkoutController::class, 'index'])->name('workouts.index');
 
 });

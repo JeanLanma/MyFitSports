@@ -23,7 +23,6 @@ const toast = useToast();
 
 const form = useForm({
     name: props.team.name,
-    cover: props.team.cover,
     id: props.team.id,
 });
 
@@ -33,8 +32,12 @@ const createTeam = () => {
         preserveScroll: true,
         onSuccess: () => {
             toast.success('El equipo se ha registrado exitosamente.');
-            form.reset();
             router.get(route('teams.index'));
+        },
+        onError: (error) => {
+            console.log(error);
+            console.log(form);
+            toast.error('Ha ocurrido un error al registrar el equipo. Si el problema persiste contacte al administrador. o al correo: "desarrollo.software@pcbtroniks.com"');
         },
     });
 };

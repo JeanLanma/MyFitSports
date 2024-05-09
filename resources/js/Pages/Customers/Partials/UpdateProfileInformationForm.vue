@@ -237,14 +237,15 @@ const clearPhotoFileInput = () => {
                 <!-- Gender -->
                 <div class="col-span-6 sm:col-span-3">
                     <InputLabel for="gender" value="Genero" />
-                    <TextInput
+                    <select 
                         id="gender"
-                        v-model="form.gender"
-                        type="text"
-                        class="mt-1 block w-full"
+                        name="gender" 
                         autocomplete="gender"
-                        placeholder="Masculino, Femenino, Otro..."
-                    />
+                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                    >
+                        <option value="masculino" :selected="form.gender == 'masculino'">Masculino</option>
+                        <option value="fenemino" :selected="form.gender == 'fenemino'">Fenemino</option>
+                    </select>
                     <InputError :message="form.errors.gender" class="mt-2" />
                 </div>
             
