@@ -13,14 +13,15 @@ class PostCustomer
             return self::updateCustomer($request, self::checkIfCustomerExists($request));
         }
         $data = $request->all();
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt('12345678'),
-        ]);
-        return Customer::create($data);
+        $customer = self::createCustomer($data);
+        return $customer;
     }
 
+    public static function createCustomer($data)
+    {
+        $customer = Customer::create($data);
+        return self::RegistrCustomerAsUser($customer);
+    }
     public static function checkIfCustomerExists($request)
     {
         return Customer::where('email', $request->email)->first();
@@ -29,5 +30,21 @@ class PostCustomer
     public static function updateCustomer($request, $customer)
     {
         return $customer->update($request->all());
+    }
+
+    public static function RegistrCustomerAsUser($customer)
+    {
+        $User = User::where('email', $customer->email)->first();
+        if($User){
+            $customer->update(['user_id' => $User->id]);
+            return $customer;
+        }
+        $user = User::create([
+            'name' => $customer->name,
+            'email' => $customer->email,
+            'password' => bcrypt('12345678'),
+        ]);
+        $customer->update(['user_id' => $user->id]);
+        return $customer;
     }
 }

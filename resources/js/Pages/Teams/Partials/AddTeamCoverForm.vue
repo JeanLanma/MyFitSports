@@ -1,6 +1,7 @@
 <script setup>
 import FormSection from '@/Components/FormSection.vue';
 import { useForm } from '@inertiajs/vue3';
+import { ParseTeamCover } from '@/Services/TeamsService';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -15,7 +16,7 @@ const props = defineProps({
 
 const fileInput = ref(null);
 const handlePreview = (file = null) => {
-    const preview = (props.team.cover != null && file == null) ? `/storage/teams/${props.team.cover}` : file;
+    const preview =  (props.team.cover != null && file == null) ? ParseTeamCover(props.team.cover) : file;
     return preview;
 };
 const File = ref({

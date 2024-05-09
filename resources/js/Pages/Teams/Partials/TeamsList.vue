@@ -1,5 +1,6 @@
 <script setup>
 import Pagination from '@/Shared/Pagination.vue';
+import { ParseTeamCover } from '@/Services/TeamsService';
 import Format from '@/Utils/Format.js';
 
 import NavigationButton from '@/Shared/NavigationButton.vue';
@@ -50,8 +51,8 @@ const props = defineProps({
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="font-bold text-gray-700">
-                                                <div v-if="team.cover">
-                                                    <img :src="team.cover" :alt="team.slug">
+                                                <div class="w-24" v-if="ParseTeamCover(team.cover)">
+                                                    <img class="w-full" :src="ParseTeamCover(team.cover)" :alt="team.slug">
                                                 </div>
                                                 <div v-else>
                                                     Imagen no disponible
@@ -73,7 +74,7 @@ const props = defineProps({
                                         <div class="flex items-center justify-center">
                                             <p class="font-medium text-gray-800">
                                                 No hay registros de clientes
-                                                <a class="text-indigo-500 font-bold text-sm hover:underline hover:underline-offset-2" :href="route('customers.create')">agregar nuevo</a>
+                                                <a class="text-indigo-500 font-bold text-sm hover:underline hover:underline-offset-2" :href="route('teams.create')">agregar nuevo</a>
                                             </p>
                                         </div>
                                     </td>

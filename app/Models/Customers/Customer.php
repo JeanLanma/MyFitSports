@@ -2,6 +2,7 @@
 
 namespace App\Models\Customers;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,5 +22,11 @@ class Customer extends Model
         'size',
         'activity',
         'status',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
