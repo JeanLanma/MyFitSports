@@ -1,14 +1,14 @@
 <script setup>
-import { ref } from 'vue';
-import { Link, router, useForm } from '@inertiajs/vue3';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ActionMessage from '@/Components/ActionMessage.vue';
+import { Link, router, useForm } from '@inertiajs/vue3';
 import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useToast } from "vue-toastification";
+import { ref } from 'vue';
 const toast = useToast();
 
 const props = defineProps({
@@ -88,6 +88,8 @@ const clearPhotoFileInput = () => {
         photoInput.value.value = null;
     }
 };
+
+// Make function that takes a string and returns a string
 </script>
 
 <template>

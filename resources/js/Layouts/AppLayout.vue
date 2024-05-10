@@ -12,6 +12,20 @@ defineProps({
     title: String,
 });
 
+const scroll = ref(null);
+const nav = ref(null);
+
+const handleScroll = (e) => {
+    console.log(e.target);
+    if (scroll.value > 100) {
+        nav.classList.add('bg-white');
+        nav.classList.remove('bg-transparent');
+    } else {
+        nav.classList.add('bg-transparent');
+        nav.classList.remove('bg-white');
+    }
+};
+
 const showingNavigationDropdown = ref(false);
 
 const switchToTeam = (team) => {
@@ -33,8 +47,8 @@ const logout = () => {
 
         <Banner />
 
-        <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
+        <div @scroll="handleScroll" class="min-h-screen bg-gray-100">
+            <nav ref="nav" class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
