@@ -19,6 +19,6 @@ const props = defineProps({
 
 <template>
     <Link :href="'/'">
-        <img src="/assets/store-logo.png" alt="logo">
+    <img :width="width" :height="height" src="/assets/store-logo.png" alt="logo">
     </Link>
 </template>

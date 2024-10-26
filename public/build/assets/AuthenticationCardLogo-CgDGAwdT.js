@@ -1,1 +1,0 @@
-import{o as t,c as e,w as a,u as o,i as s,a as r}from"./app-3fbTX44C.js";const i=r("img",{src:"/assets/store-logo.png",alt:"logo"},null,-1),_={__name:"AuthenticationCardLogo",props:{width:{type:String,default:"100"},height:{type:String,default:"100"},fill:{type:String,default:"text-white"}},setup(n){return(c,l)=>(t(),e(o(s),{href:"/"},{default:a(()=>[i]),_:1}))}};export{_};
