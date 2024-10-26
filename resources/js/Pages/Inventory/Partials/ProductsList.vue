@@ -88,7 +88,7 @@ const Products = [
                                         {{ product.cost }}
                                     </td>
                                     <td class="p-2 whitespace-nowrap cursor-default">
-                                        <a :href="route('teams.show', product.id)" class="text-left font-medium text-indigo-500 hover:text-sky-500 duration-150 hover:underline underline-offset-2">ver detalle</a>
+                                        <a :href="route('products.create')" class="text-left font-medium text-indigo-500 hover:text-sky-500 duration-150 hover:underline underline-offset-2">ver detalle</a>
                                     </td>
                                 </tr>
                             </tbody>
