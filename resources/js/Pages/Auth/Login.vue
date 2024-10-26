@@ -32,7 +32,7 @@ const submit = () => {
 <template>
     <Head title="Log in" />
 
-    <AuthenticationCard class="bg-[url('/assets/bg-run.webp')] bg-cover">
+    <AuthenticationCard class="bg-[url('/assets/business-team.jpg')] bg-cover">
         <template #logo>
             <AuthenticationCardLogo class="opacity-80" width="100" height="100" fill="#ffffff"/>
         </template>
