@@ -13,6 +13,10 @@ const props = defineProps({
         type: Object,
         default: () => ({
             name: null,
+            price: null,
+            cost: null,
+            code: null,
+            status: null,
             cover: null,
             id: null,
         }),
@@ -23,6 +27,11 @@ const toast = useToast();
 
 const form = useForm({
     name: props.product.name,
+    price: props.product.price,
+    cost: props.product.cost,
+    code: props.product.code,
+    status: props.product.status,
+    cover: props.product.cover,
     id: props.product.id,
 });
 
@@ -76,40 +85,40 @@ const Status = [
                 <InputLabel for="price" value="Precio de venta" />
                 <TextInput
                     id="price"
-                    v-model="form.name"
+                    v-model="form.price"
                     type="text"
                     class="block w-full mt-1"
                     placeholder="ej. $ 0.00"
                 />
-                <InputError :message="form.errors.name" class="mt-2" />
+                <InputError :message="form.errors.price" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="cost" value="Costo de compra" />
                 <TextInput
                     id="cost"
-                    v-model="form.name"
+                    v-model="form.cost"
                     type="text"
                     class="block w-full mt-1"
                     placeholder="ej. 123456789"
                 />
-                <InputError :message="form.errors.name" class="mt-2" />
+                <InputError :message="form.errors.cost" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="code" value="Codigo (opcional)" />
                 <TextInput
                     id="code"
-                    v-model="form.name"
+                    v-model="form.code"
                     type="text"
                     class="block w-full mt-1"
                     placeholder="$ 0.00"
                 />
-                <InputError :message="form.errors.name" class="mt-2" />
+                <InputError :message="form.errors.code" class="mt-2" />
             </div>
             <br>
             <div class="col-span-6 sm:col-span-2">
-                    <InputLabel for="gender" value="Estatus" />
+                    <InputLabel for="status" value="Estatus" />
                     <select 
-                        id="gender"
+                        id="status"
                         name="gender" 
                         autocomplete="gender"
                         class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"

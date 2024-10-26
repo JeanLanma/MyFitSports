@@ -74,9 +74,9 @@ const logout = () => {
                                 <NavLink :href="route('workouts.index')" :active="route().current('workouts.*')">
                                     Inventario
                                 </NavLink>
-                                <NavLink>
+                                <!-- <NavLink>
                                     Provedores
-                                </NavLink>
+                                </NavLink> -->
                                 <NavLink :href="route('branches.index')" :active="route().current('branches.*')">
                                     Sucursales
                                 </NavLink>
