@@ -65,14 +65,20 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('customers.index')" :active="route().current('customers.*')">
-                                    Clientes
+                                <NavLink :href="route('sales.index')" :active="route().current('sales.*')">
+                                    Ventas
                                 </NavLink>
-                                <NavLink :href="route('teams.index')" :active="route().current('teams.*')">
-                                    Equipos
+                                <NavLink :href="route('products.index')" :active="route().current('products.*')">
+                                    Productos
                                 </NavLink>
                                 <NavLink :href="route('workouts.index')" :active="route().current('workouts.*')">
-                                    Entranimientos
+                                    Inventario
+                                </NavLink>
+                                <NavLink>
+                                    Provedores
+                                </NavLink>
+                                <NavLink>
+                                    Sucursales
                                 </NavLink>
                             </div>
                         </div>

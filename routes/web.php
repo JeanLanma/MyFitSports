@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Customers\CustomerController;
+use App\Http\Controllers\ERP\Inventory\ProductsController;
+use App\Http\Controllers\ERP\SalesController;
 use App\Http\Controllers\Teams\TeamsController;
 use App\Http\Controllers\Workouts\WorkoutController;
 use Illuminate\Foundation\Application;
@@ -55,5 +57,11 @@ Route::middleware([
     Route::post('/teams/store', [TeamsController::class, 'store'])->name('teams.store');
 
     Route::get('/workouts', [WorkoutController::class, 'index'])->name('workouts.index');
+
+
+    Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
+    Route::get('/sales/show/{sale?}', [SalesController::class, 'show'])->name('sales.show');
+    Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
+    Route::get('/inventory/products/products/create', [ProductsController::class, 'create'])->name('products.create');
 
 });
