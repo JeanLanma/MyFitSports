@@ -24,7 +24,7 @@ const inventory = ref([
         status: 'Activo',
     },
     {
-        id: 1,
+        id: 2,
         product: 'Paquete de galletas',
         unit_price: '$ 80.00',
         stock: 40,
