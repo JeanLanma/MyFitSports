@@ -1,9 +1,13 @@
 <script setup>
+import NavigationButton from '@/Shared/NavigationButton.vue';
 import Pagination from '@/Shared/Pagination.vue';
 import Format from '@/Utils/Format.js';
 import { ref } from 'vue';
 
-import NavigationButton from '@/Shared/NavigationButton.vue';
+const props = defineProps({
+    products: Object,
+});
+
 
 const GetStatusColor = (status) => {
     switch (status) {
@@ -14,24 +18,12 @@ const GetStatusColor = (status) => {
     }
 };
 
-const inventory = ref([
-    {
-        id: 1,
-        product: 'Cafe americano',
-        unit_price: '$ 100.00',
-        stock: 50,
-        updated_at: '2024-10-25 09:06:45',
-        status: 'Activo',
-    },
-    {
-        id: 2,
-        product: 'Paquete de galletas',
-        unit_price: '$ 80.00',
-        stock: 40,
-        updated_at: '2024-10-27 09:06:45',
-        status: 'Activo',
-    },
-]);
+const CurrencyFormat = (value) => {
+    return Format.Currency(value);
+};
+
+const inventory = ref(props.products.data);
+console.log(inventory.value);
 </script>
 
 <template>
@@ -57,10 +49,16 @@ const inventory = ref([
                                         <div class="font-semibold text-left">Producto</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Costo unitario</div>
+                                        <div class="font-semibold text-left">Costo</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
-                                        <div class="font-semibold text-left">Existencias</div>
+                                        <div class="font-semibold text-left">Unidad</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">provedor</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">stock</div>
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
                                         <div class="font-semibold text-left">Ultima actualización</div>
@@ -79,12 +77,22 @@ const inventory = ref([
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <div class="text-gray-700">{{ inv.product }}</div>
+                                            <div class="text-gray-700">{{ inv.name }}</div>
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <div class=" text-gray-700">{{ inv.unit_price }}</div>
+                                            <div class=" text-gray-700">{{ Format.Currency(inv.costs) }}</div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="text-gray-700">{{ inv.unit }}</div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="text-gray-700 font-semibold">{{ inv.supplier }}</div>
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap cursor-default text-indigo-400">
@@ -92,7 +100,7 @@ const inventory = ref([
                                     </td>
                                     <td class="p-2 whitespace-nowrap cursor-default font-semibold">
                                         <span class="py-1 px-3" :class="GetStatusColor(inv.status)">
-                                            {{ inv.updated_at }}
+                                            {{ Format.TimestampToDate(inv.updated_at) }}
                                         </span>
                                     </td>
                                     <td class="p-2 whitespace-nowrap cursor-default">

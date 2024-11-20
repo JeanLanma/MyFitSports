@@ -3,5 +3,6 @@ import { FormatPrice } from "./FormatNumber";
 
 export default {
     TimestampToDate,
-    FormatPrice
+    FormatPrice,
+    Currency: FormatPrice,
 }
