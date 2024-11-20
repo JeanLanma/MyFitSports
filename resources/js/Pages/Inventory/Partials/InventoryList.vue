@@ -17,11 +17,6 @@ const GetStatusColor = (status) => {
             return 'text-gray-500 bg-gray-100 rounded-full';
     }
 };
-
-const CurrencyFormat = (value) => {
-    return Format.Currency(value);
-};
-
 const inventory = ref(props.products.data);
 console.log(inventory.value);
 </script>

@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import InventoryList from './Partials/InventoryList.vue';
+import ProductInventoryFilters from './Partials/ProductInventoryFilters.vue';
 
 const props = defineProps({
     products: Object,
@@ -18,6 +19,9 @@ const props = defineProps({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                <ProductInventoryFilters :params="{}" />
+
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <InventoryList 
                         class="mt-10 sm:mt-0"
