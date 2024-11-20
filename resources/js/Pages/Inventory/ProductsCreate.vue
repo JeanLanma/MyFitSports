@@ -3,14 +3,16 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import CreateProductForm from '@/Pages/Inventory/Partials/CreateProductForm.vue';
 
 const props = defineProps({
-    errors: Object,
-    team: {
+    product: {
         type: Object,
         default: () => ({
-            name: '',
-            slug: '',
-            description: '',
-            personal_team: false,
+            name: null,
+            price: null,
+            cost: null,
+            code: null,
+            status: null,
+            cover: null,
+            id: null,
         }),
     },
 });
@@ -27,7 +29,7 @@ const props = defineProps({
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <CreateProductForm
-                    :product="{}"
+                    :products="{}"
                 />
             </div>
         </div>

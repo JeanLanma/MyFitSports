@@ -6,7 +6,7 @@ import Format from '@/Utils/Format.js';
 import NavigationButton from '@/Shared/NavigationButton.vue';
 
 const props = defineProps({
-    teams: Object,
+    Products: Object,
 });
 
 const Products = [

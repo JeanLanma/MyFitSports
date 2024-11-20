@@ -27,29 +27,28 @@ const toast = useToast();
 
 const form = useForm({
     name: props.product.name,
-    price: props.product.price,
     cost: props.product.cost,
     code: props.product.code,
     status: props.product.status,
-    cover: props.product.cover,
     id: props.product.id,
+    unit: props.product.unit,
+    supplier: props.product.supplier,
+    stock: props.product.stock,
+    physical_inventory: props.product.physical_inventory,
 });
 
-const createTeam = () => {
-    form.post(route('teams.store'), {
-        errorBag: 'createTeam',
+const SubmitProduct = () => {
+    form.post(route('products.store'), {
         preserveScroll: true,
         onSuccess: () => {
-            toast.success('El equipo se ha registrado exitosamente.');
-            router.get(route('teams.index'));
+            toast.success('Producto añadido correctamente');
+            router.push(route('products.index'));
         },
-        onError: (error) => {
-            console.log(error);
-            console.log(form);
-            toast.error('Ha ocurrido un error al registrar el equipo. Si el problema persiste contacte al administrador. o al correo: "desarrollo.software@pcbtroniks.com"');
+        onError: () => {
+            toast.error('Hubo un error al añadir el producto, recargue la página e intente de nuevo');
         },
     });
-};
+}
 
 const Status = [
     'Activo',
@@ -58,7 +57,7 @@ const Status = [
 </script>
 
 <template>
-    <FormSection @submitted="createTeam">
+    <FormSection @submitted="SubmitProduct">
         <template #title>
             Detalles el nuevo producto
         </template>
@@ -77,31 +76,70 @@ const Status = [
                     type="text"
                     class="block w-full mt-1"
                     autofocus
-                    placeholder="ej. Coca cola"
+                    placeholder="Ej. Coca cola"
                 />
                 <InputError :message="form.errors.name" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="price" value="Precio de venta" />
-                <TextInput
-                    id="price"
-                    v-model="form.price"
-                    type="text"
-                    class="block w-full mt-1"
-                    placeholder="ej. $ 0.00"
-                />
-                <InputError :message="form.errors.price" class="mt-2" />
+            <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3">
+                    <InputLabel for="cost" value="Costo" />
+                    <TextInput
+                        id="cost"
+                        v-model="form.cost"
+                        type="text"
+                        class="mt-1 block w-full"
+                        autocomplete="cost"
+                        placeholder="Ej. 99.00"
+                    />
+                    <InputError :message="form.errors.weight" class="mt-2" />
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <InputLabel for="unit" value="Unidad" />
+                    <TextInput
+                        id="unit"
+                        v-model="form.unit"
+                        class="mt-1 block w-full"
+                        autocomplete="unit"
+                        placeholder="Ej. KG"
+                    />
+                    <InputError :message="form.errors.height" class="mt-2" />
+                </div>
             </div>
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="cost" value="Costo de compra" />
+                <InputLabel for="supplier" value="Provedor" />
                 <TextInput
-                    id="cost"
-                    v-model="form.cost"
+                    id="supplier"
+                    v-model="form.supplier"
                     type="text"
                     class="block w-full mt-1"
-                    placeholder="ej. 123456789"
                 />
-                <InputError :message="form.errors.cost" class="mt-2" />
+                <InputError :message="form.errors.supplier" class="mt-2" />
+            </div>
+            <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3">
+                    <InputLabel for="stock" value="Disponibilidad (stock)" />
+                    <TextInput
+                        id="stock"
+                        v-model="form.stock"
+                        type="text"
+                        class="mt-1 block w-full"
+                        autocomplete="stock"
+                        placeholder=""
+                    />
+                    <InputError :message="form.errors.stock" class="mt-2" />
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <InputLabel for="physical_inventory" value="Disponiblidad fisica" />
+                    <TextInput
+                        id="physical_inventory"
+                        v-model="form.physical_inventory"
+                        class="mt-1 block w-full"
+                        autocomplete="physical_inventory"
+                    />
+                    <InputError :message="form.errors.physical_inventory" class="mt-2" />
+                </div>
             </div>
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="code" value="Codigo (opcional)" />
@@ -110,7 +148,7 @@ const Status = [
                     v-model="form.code"
                     type="text"
                     class="block w-full mt-1"
-                    placeholder="$ 0.00"
+                    placeholder="Ej. 0001"
                 />
                 <InputError :message="form.errors.code" class="mt-2" />
             </div>
@@ -118,6 +156,7 @@ const Status = [
             <div class="col-span-6 sm:col-span-2">
                     <InputLabel for="status" value="Estatus" />
                     <select 
+                        v-model="form.status"
                         id="status"
                         name="gender" 
                         autocomplete="gender"

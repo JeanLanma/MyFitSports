@@ -64,7 +64,8 @@ Route::middleware([
     Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
     Route::get('/sales/show/{sale?}', [SalesController::class, 'show'])->name('sales.show');
     Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
-    Route::get('/inventory/products/products/create', [ProductsController::class, 'create'])->name('products.create');
+    Route::get('/inventory/products/create', [ProductsController::class, 'create'])->name('products.create');
+    Route::post('/inventory/products/create', [ProductsController::class, 'store'])->name('products.store');
     Route::get('/branches', [BranchesController::class, 'index'])->name('branches.index');
     Route::get('/branches/show', [BranchesController::class, 'index'])->name('branches.show');
     Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
