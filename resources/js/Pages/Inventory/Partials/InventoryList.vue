@@ -18,7 +18,6 @@ const GetStatusColor = (status) => {
     }
 };
 const inventory = ref(props.products.data);
-console.log(inventory.value);
 </script>
 
 <template>

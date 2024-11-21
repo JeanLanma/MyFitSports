@@ -1,11 +1,17 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3'
-
+import { router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 const props = defineProps({
     params: Object,
 });
 
 const filterForm = useForm({
+    name: props.params.name,
+    type: props.params?.type || 'Todos',
+    supplier: props.params.supplier,
+});
+const filters = ref({
     name: props.params.name,
     type: props.params?.type || 'Todos',
     supplier: props.params.supplier,
@@ -25,9 +31,14 @@ const Types = [
     'Delinats',
     'Coffe solutions',
     'Otros',
-]
-const submitFilter = () => {
-    console.log(filterForm.data);
+];
+
+const submitFilter = (key) => {
+    props.params[key] = filterForm[key];
+    console.log(props.params);
+    return console.log(route('inventory.index', props.params));
+    
+    router.get(route('inventory.index'), props.params);
 }
 </script>
 <template>
@@ -42,15 +53,14 @@ const submitFilter = () => {
     </div>
     <div class="w-full">
         <label for="type" class="text-sm text-gray-400">Categoria</label>
-        <select @change="submitFilter" v-model="filterForm.type" class="w-full border-2 border-sky-500 rounded-xl" name="type" id="type">
+        <select @change="submitFilter('type')" v-model="filterForm.type" class="w-full border-2 border-sky-500 rounded-xl" name="type" id="type">
             <option v-for="type in Types" :value="type" :key="type">{{ type }}</option>
         </select>
     </div>
 </div>
 <div class="w-full flex gap-4 flex-col md:flex-row justify-end items-end px-2 pt-2 pb-4">
     <div>
-        <a :href="route('inventory.index')" class="text-gray-400 underline underline-offset-2
- hover:text-sky-600">Limpiar filtros</a>
+        <a :href="route('inventory.index')" class="text-gray-400 underline underline-offset-2 hover:text-sky-600">Limpiar filtros</a>
     </div>
 </div>
 </template>

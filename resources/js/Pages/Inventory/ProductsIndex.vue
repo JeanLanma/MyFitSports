@@ -4,8 +4,9 @@ import TeamsList from './Partials/ProductsList.vue';
 
 const props = defineProps({
     products: Object,
+    params: Object | Array
 });
-console.log(props.products);
+console.log(props.params);
 
 </script>
 

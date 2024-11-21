@@ -11,10 +11,13 @@ class GetProduct
         $Product_ = ProductModel::where('id', $Product['id'])->first();
         return $Product_;
     }
-    public static function Paginated($Search, $limit = 25)
+    public static function Paginated($Search, $limit = 2)
     {
         $Product_ = ProductModel::when(isset($Search['name']), function ($query) use ($Search) {
                                         $query->where('name', 'like', '%' . $Search['name'] . '%');
+                                    })
+                                    ->when(isset($Search['type']), function ($query) use ($Search) {
+                                        $query->where('type', $Search['type']);
                                     })
                                     ->when(isset($Search['stock']), function ($query) use ($Search) {
                                         $query->where('stock', 'like', '%' . $Search['stock'] . '%');

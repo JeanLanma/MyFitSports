@@ -2,11 +2,12 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import InventoryList from './Partials/InventoryList.vue';
 import ProductInventoryFilters from './Partials/ProductInventoryFilters.vue';
+import PaginationRounded from '@/Shared/PaginationRounded.vue';
 
 const props = defineProps({
     products: Object,
+    params: Object | Array
 });
-
 </script>
 
 <template>
@@ -20,7 +21,7 @@ const props = defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-                <ProductInventoryFilters :params="{}" />
+                <ProductInventoryFilters :params="props.params" />
 
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <InventoryList 
@@ -28,6 +29,13 @@ const props = defineProps({
                         :products="props.products"
                     />
                 </div>
+
+                <!-- Pagination -->
+                <div class="my-4">
+                    <nav class="flex justify-end" aria-label="Page navigation">
+                        <PaginationRounded :PaginationObject="props.products" :Params="props.params" />
+                    </nav>
+                 </div>
             </div>
         </div>
 

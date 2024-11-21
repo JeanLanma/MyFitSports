@@ -13,7 +13,8 @@ class ProductsController extends Controller
     {
         $products = GetProduct::Paginated(request()->all());
         return inertia('Inventory/ProductsIndex',[
-            'products' => $products
+            'products' => $products,
+            'params' => request()->all()
         ]);
     }
     public function create()

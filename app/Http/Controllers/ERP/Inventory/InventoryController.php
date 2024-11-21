@@ -12,7 +12,8 @@ class InventoryController extends Controller
     {
         $products = GetProduct::Paginated(request()->all());
         return inertia('Inventory/InventoryIndex', [
-            'products' => $products
+            'products' => $products,
+            'params' => request()->all()
         ]);
     }
 }
