@@ -11,8 +11,9 @@ class GetProduct
         $Product_ = ProductModel::where('id', $Product['id'])->first();
         return $Product_;
     }
-    public static function Paginated($Search, $limit = 2)
+    public static function Paginated($Search, $limit = 25)
     {
+        $_limit = (isset($Search['per_page']) && is_numeric($Search['per_page']) && $Search['per_page'] > 0) ? $Search['per_page'] : $limit;
         $Product_ = ProductModel::when(isset($Search['name']), function ($query) use ($Search) {
                                         $query->where('name', 'like', '%' . $Search['name'] . '%');
                                     })
@@ -37,7 +38,7 @@ class GetProduct
                                     ->when(isset($Search['physical_inventory']), function ($query) use ($Search) {
                                         $query->where('physical_inventory', $Search['physical_inventory']);
                                     })
-                                    ->paginate($limit);
+                                    ->paginate($_limit);
         return $Product_;
     }
 }

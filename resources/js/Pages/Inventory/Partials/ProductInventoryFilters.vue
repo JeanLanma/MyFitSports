@@ -35,21 +35,20 @@ const Types = [
 
 const submitFilter = (key) => {
     props.params[key] = filterForm[key];
-    console.log(props.params);
-    return console.log(route('inventory.index', props.params));
+    const Queries = {...props.params, page: 1};
     
-    router.get(route('inventory.index'), props.params);
+    router.get(route('inventory.index', Queries));
 }
 </script>
 <template>
 <div class="flex gap-4 flex-col md:flex-row px-2">
     <div class="w-full">
         <label for="supplier" class="text-sm text-gray-400">Provedor</label>
-        <input @change="submitFilter" v-model="filterForm.supplier" class="w-full rounded-xl border-2 border-sky-500" type="text" name="supplier" id="supplier">
+        <input @change="submitFilter('supplier')" v-model="filterForm.supplier" class="w-full rounded-xl border-2 border-sky-500" type="text" name="supplier" id="supplier">
     </div>
     <div class="w-full">
         <label for="name" class="text-sm text-gray-400">Producto</label>
-        <input type="text" @change="submitFilter" v-model="filterForm.name" class="w-full rounded-xl border-2 border-sky-500" name="name" id="name">
+        <input type="text" @change="submitFilter('name')" v-model="filterForm.name" class="w-full rounded-xl border-2 border-sky-500" name="name" id="name">
     </div>
     <div class="w-full">
         <label for="type" class="text-sm text-gray-400">Categoria</label>

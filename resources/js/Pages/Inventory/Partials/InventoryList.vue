@@ -27,7 +27,7 @@ const inventory = ref(props.products.data);
             <div class="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                 <header class="px-5 py-4 border-b border-gray-100 flex flex-col md:flex-row justify-between">
                     <h2 class="font-bold text-gray-800 text-2xl">Inventarios</h2>
-                    <NavigationButton class="max-w-md text-sky-600">
+                    <NavigationButton :visit="route('products.create')" class="max-w-md text-sky-600">
                         Añadir nuevo
                     </NavigationButton>
                 </header>
