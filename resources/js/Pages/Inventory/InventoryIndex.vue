@@ -25,7 +25,6 @@ const props = defineProps({
 
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <InventoryList 
-                        class="mt-10 sm:mt-0"
                         :products="props.products"
                     />
                 </div>

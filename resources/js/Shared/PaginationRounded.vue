@@ -22,7 +22,6 @@ const Results = () => {
     const total = props.PaginationObject.total;
     return `${from} - ${to} de ${total}`;
 }
-console.log(Results());
 </script>
 
 <template>
