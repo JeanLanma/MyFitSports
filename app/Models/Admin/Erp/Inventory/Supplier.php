@@ -5,20 +5,22 @@ namespace App\Models\Admin\Erp\Inventory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Supplier extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'type',
-        'stock',
-        'costs',
-        'price',
-        'status',
-        'unit',
-        'supplier',
-        'physical_inventory',
+        'category_id',
+        'company_reason',
+        'company_name',
+        'contact_person',
+        'phone',
+        'email',
+        'address',
+        'payment_method',
+        'credit_days',
+        'request_type',
+        'stamp_type',
     ];
 
     public function category()

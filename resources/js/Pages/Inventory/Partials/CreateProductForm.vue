@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useToast } from "vue-toastification";
 import { router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const props = defineProps({
     product: {
@@ -72,6 +73,14 @@ const Types = [
     'Coffe solutions',
     'Otros',
 ]
+
+// Utils
+const CustomSelecetUnit = ref(false);
+const CustomSelectUnitData = ref([
+    'KG',
+    'PAQ',
+    '650ml',
+]);
 </script>
 
 <template>
@@ -112,7 +121,7 @@ const Types = [
                     <InputError :message="form.errors.weight" class="mt-2" />
                 </div>
 
-                <div class="col-span-6 sm:col-span-3">
+                <div class="col-span-6 sm:col-span-3 relative">
                     <InputLabel for="unit" value="Unidad" />
                     <TextInput
                         id="unit"
@@ -120,7 +129,12 @@ const Types = [
                         class="mt-1 block w-full"
                         autocomplete="unit"
                         placeholder="Ej. KG"
+                        @focus="CustomSelecetUnit = true"
+                        
                     />
+                    <div @mouseleave="CustomSelecetUnit = false" v-show="CustomSelecetUnit" @mouseover="CustomSelecetUnit = true" class="absolute flex flex-col cursor-pointer bg-gray-100 rounded-b-md shadow-lg w-full border border-gray-200">
+                        <span v-for="item in CustomSelectUnitData" @click="form.unit = item" class="hover:bg-gray-300 font-semibold w-full p-2">{{ item }}</span>
+                    </div>
                     <InputError :message="form.errors.height" class="mt-2" />
                 </div>
             </div>
