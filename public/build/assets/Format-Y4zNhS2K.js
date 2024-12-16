@@ -1,0 +1,1 @@
+const e=t=>new Date(t).toISOString().split("T")[0].split("-").join("/"),r=t=>t==null?"":"$"+t.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","),n={TimestampToDate:e,FormatPrice:r,Currency:r};export{n as F};

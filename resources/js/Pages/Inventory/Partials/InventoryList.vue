@@ -46,7 +46,7 @@ const CloseUpdateProductModal = () => {
     <section>
 <DialogModal :show="ShowUpdateProductModal" @close="CloseUpdateProductModal">
     <template #title>
-        Actualizando: {{ CurrentProduct.name + ' - ' + CurrentProduct.supplier }}
+        Actualizando: {{ CurrentProduct?.name + ' - ' + CurrentProduct?.supplier }}
     </template>
 
     <template #content>
