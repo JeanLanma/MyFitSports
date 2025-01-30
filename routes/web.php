@@ -3,6 +3,7 @@
 use App\Http\Controllers\Customers\CustomerController;
 use App\Http\Controllers\ERP\Branches\BranchesController;
 use App\Http\Controllers\ERP\Inventory\InventoryController;
+use App\Http\Controllers\Erp\Inventory\ProductCategoriesController;
 use App\Http\Controllers\ERP\Inventory\ProductsController;
 use App\Http\Controllers\ERP\SalesController;
 use App\Http\Controllers\Teams\TeamsController;
@@ -70,5 +71,6 @@ Route::middleware([
     Route::get('/branches/show', [BranchesController::class, 'index'])->name('branches.show');
     Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory.index');
     Route::get('/inventory/show', [InventoryController::class, 'index'])->name('inventory.show');
-    
+
+    Route::get('/product-categories', [ProductCategoriesController::class, 'index'])->name('product-categories.index');
 });
