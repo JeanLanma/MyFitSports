@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import InventoryList from './Partials/InventoryList.vue';
-import ProductInventoryFilters from './Partials/ProductInventoryFilters.vue';
+// import InventoryList from './Partials/InventoryList.vue';
+// import ProductInventoryFilters from './Partials/ProductInventoryFilters.vue';
 import PaginationRounded from '@/Shared/PaginationRounded.vue';
 
 const props = defineProps({
