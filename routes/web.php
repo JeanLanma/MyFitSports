@@ -1,5 +1,7 @@
 <?php
 
+use App\Exports\ProductsExport;
+use App\Exports\UsersExport;
 use App\Http\Controllers\Customers\CustomerController;
 use App\Http\Controllers\ERP\Branches\BranchesController;
 use App\Http\Controllers\ERP\Inventory\InventoryController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\Workouts\WorkoutController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +76,14 @@ Route::middleware([
     Route::get('/inventory/show', [InventoryController::class, 'index'])->name('inventory.show');
 
     Route::get('/product-categories', [ProductCategoriesController::class, 'index'])->name('product-categories.index');
+
+    //Exports
+    Route::get('/export/users', function()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    })->name('users.export');
+    Route::get('/export/products', function()
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+    })->name('products.export');
 });

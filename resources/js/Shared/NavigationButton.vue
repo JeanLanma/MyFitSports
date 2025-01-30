@@ -9,7 +9,11 @@ const props = defineProps({
 });
 
 const GoToRoute = (route) => {
-    router.visit(route);
+    if(route)
+    {
+
+        router.visit(route);
+    }
 };
 </script>
 
