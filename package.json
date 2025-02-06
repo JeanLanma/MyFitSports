@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "vue-toastification": "^2.0.0-rc.5",
+        "vue3-table-lite": "^1.4.0",
         "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
     }
 }
