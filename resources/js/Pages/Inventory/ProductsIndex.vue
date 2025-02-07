@@ -4,41 +4,59 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { read, utils, writeFileXLSX } from 'xlsx';
 import { ref, onMounted } from "vue";
 
+const CurrentSheet = ref(null);
 /* the component state is an array of objects */
 
 const props = defineProps({
     products: Object,
     params: Object | Array
 });
-console.log(props.params);
 
 /* the component state is an array of objects */
 // const pres = ref([]);
 const rows = ref([]);
 
 /* Fetch and update the state once */
-// onMounted(async() => {
-//   /* Download from https://docs.sheetjs.com/pres.numbers */
-//   const f = await fetch("https://docs.sheetjs.com/pres.numbers");
-//   const ab = await f.arrayBuffer();
-
-//   /* parse */
-//   const wb = read(ab);
-
-//   /* generate array of objects from first worksheet */
-//   const ws = wb.Sheets[wb.SheetNames[0]]; // get the first worksheet
-//   const data = utils.sheet_to_json(ws); // generate objects
-
-//   /* update state */
-//   pres.value = data;
+//  onMounted(async() => {
+//    const f = await fetch("https://docs.sheetjs.com/pres.numbers");
+//    const ab = await f.arrayBuffer();
+//    /* parse */
+//    const wb = read(ab);
+//    /* generate array of objects from first worksheet */
+//    const ws = wb.Sheets[wb.SheetNames[0]]; // get the first worksheet
+//    const data = utils.sheet_to_json(ws); // generate objects
+//    /* update state */
 //     rows.value = data;
-// });
+//     console.log(rows.value);
+//  });
 /* get state data and export to XLSX */
 function exportFile() {
-  const ws = utils.json_to_sheet(rows.value);
-  const wb = utils.book_new();
-  utils.book_append_sheet(wb, ws, "Data");
-  writeFileXLSX(wb, "SheetJSVueAoO.xlsx");
+    rows.value.unshift(CurrentSheet.value.headers);
+    
+    const ws = utils.aoa_to_sheet(rows.value); 
+    const wb = utils.book_new();
+    utils.book_append_sheet(wb, ws, "Sheet1");
+    // Get Random string
+    const randomString = Math.random().toString(36).substring(3, 9);
+    writeFileXLSX(wb, "SheetJSVueAoO-" + randomString + ".xlsx");
+}
+// ================
+const ParseJsonSheetToTable = (sheet) => {
+    const JsonTable = {
+        headers: [],
+        rows: []
+    };
+    rows.value = [];
+    sheet.forEach((row, index) => {
+        if (index === 0) {
+            JsonTable.headers = row;
+        } else {
+            JsonTable.rows.push(row);
+        }
+    });
+    JsonTable.headers = Array.from(new Set(JsonTable.headers));
+    rows.value = JsonTable.rows;
+    return JsonTable;
 }
 // ================
 onMounted( () => {
@@ -50,11 +68,14 @@ onMounted( () => {
             let data = new Uint8Array(e.target.result);
             let workbook = read(data, { type: 'array' });
             let sheetName = workbook.SheetNames[0];
-            let sheet = utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
-
+            let sheet = utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, nullError: true });
+            // let shetHTML = utils.sheet_to_html(workbook.Sheets[sheetName]);
+            utils.json_to_sheet(sheet);
+            
             let table = document.getElementById('excelTable');
             table.innerHTML = ""; // Limpia la tabla antes de renderizar
-
+            CurrentSheet.value = ParseJsonSheetToTable(sheet);
+            
             sheet.forEach(row => {
                 let tr = document.createElement("tr");
                 row.forEach(cell => {
@@ -66,7 +87,6 @@ onMounted( () => {
                 table.appendChild(tr);
             });
             
-            document.getElementById('excelTable').innerHTML = sheet;
         };
         
         reader.readAsArrayBuffer(file);
