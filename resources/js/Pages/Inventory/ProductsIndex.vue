@@ -13,7 +13,6 @@ const props = defineProps({
 });
 
 /* the component state is an array of objects */
-// const pres = ref([]);
 const rows = ref([]);
 
 /* Fetch and update the state once */
@@ -31,14 +30,25 @@ const rows = ref([]);
 //  });
 /* get state data and export to XLSX */
 function exportFile() {
-    rows.value.unshift(CurrentSheet.value.headers);
-    
-    const ws = utils.aoa_to_sheet(rows.value); 
-    const wb = utils.book_new();
-    utils.book_append_sheet(wb, ws, "Sheet1");
-    // Get Random string
-    const randomString = Math.random().toString(36).substring(3, 9);
-    writeFileXLSX(wb, "SheetJSVueAoO-" + randomString + ".xlsx");
+    let table = document.getElementById("excelTable");
+    let sheetData = [];
+
+    // Recorrer filas de la tabla
+    table.querySelectorAll("tr").forEach((row) => {
+        let rowData = [];
+        row.querySelectorAll("td").forEach((cell) => {
+            rowData.push(cell.textContent.trim()); // Obtener texto de cada celda
+        });
+        sheetData.push(rowData);
+    });
+
+    // Crear un nuevo libro de Excel
+    let workbook = utils.book_new();
+    let worksheet = utils.aoa_to_sheet(sheetData); // Convertir la tabla a formato Excel
+    utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+    // Guardar archivo Excel
+    writeFileXLSX(workbook, "archivo_modificado.xlsx");
 }
 // ================
 const ParseJsonSheetToTable = (sheet) => {
@@ -56,6 +66,8 @@ const ParseJsonSheetToTable = (sheet) => {
     });
     JsonTable.headers = Array.from(new Set(JsonTable.headers));
     rows.value = JsonTable.rows;
+    console.log(JsonTable);
+    
     return JsonTable;
 }
 // ================
@@ -76,17 +88,29 @@ onMounted( () => {
             table.innerHTML = ""; // Limpia la tabla antes de renderizar
             CurrentSheet.value = ParseJsonSheetToTable(sheet);
             
-            sheet.forEach(row => {
+            sheet.forEach((row, rowIndex) => {
                 let tr = document.createElement("tr");
-                row.forEach(cell => {
+                row.forEach((cell, colIndex) => {
                     let td = document.createElement("td");
-                    td.textContent = cell || "";  // Evita valores `undefined`
-                    td.contentEditable = "true";  // Hace la celda editable
+                    td.textContent = cell || ""; // Evita valores `undefined`
+                    td.contentEditable = "true"; // Hace la celda editable
+                    td.dataset.row = rowIndex; // Guarda la fila
+                    td.dataset.col = colIndex; // Guarda la columna
                     tr.appendChild(td);
                 });
                 table.appendChild(tr);
             });
-            
+
+
+            // Detectar cambios en la celda
+            table.addEventListener("input", function (event) {
+                let target = event.target;
+                if (target.tagName === "TD") {
+                    let row = target.dataset.row;
+                    let col = target.dataset.col;
+                    console.log(`Celda editada en fila: ${row}, columna: ${col}, nuevo valor: ${target.textContent}`);
+                }
+            });
         };
         
         reader.readAsArrayBuffer(file);
