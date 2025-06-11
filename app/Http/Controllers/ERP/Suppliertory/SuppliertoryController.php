@@ -16,4 +16,9 @@ class SuppliertoryController extends Controller
             'params' => request()->all()
         ]);
     }
+
+    public function create()
+    {
+        return inertia('Suppliertory/SupplierCreate');
+    }
 }

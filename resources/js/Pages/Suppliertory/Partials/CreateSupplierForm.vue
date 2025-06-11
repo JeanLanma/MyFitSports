@@ -10,33 +10,23 @@ import { router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const props = defineProps({
-    product: {
-        type: Object,
-        default: () => ({
-            name: null,
-            price: null,
-            cost: null,
-            code: null,
-            status: null,
-            cover: null,
-            id: null,
-        }),
-    },
+    supplier: Object
 });
 
 const toast = useToast();
 
 const form = useForm({
-    name: props.product.name,
-    type: props.product.type || 'Otros',
-    cost: props.product.cost,
-    code: props.product.code,
-    status: props.product.status || 'activo',
-    id: props.product.id,
-    unit: props.product.unit,
-    supplier: props.product.supplier,
-    stock: props.product.stock,
-    physical_inventory: props.product.physical_inventory,
+    category: props.supplier.category,
+    fiscal_name: props.supplier.fiscal_name,
+    trade_name: props.supplier.trade_name,
+    responsible_contact: props.supplier.responsible_contact,
+    phone: props.supplier.phone,
+    mail: props.supplier.mail,
+    payment_method: props.supplier.payment_method,
+    credit_days: props.supplier.credit_days,
+    application_type: props.supplier.application_type,
+    seal_type: props.supplier.seal_type,
+    id: props.supplier.id,
 });
 
 const SubmitProduct = () => {
@@ -90,52 +80,43 @@ const CustomSelectUnitData = ref([
         </template>
 
         <template #description>
-            Registrar un nuevo producto para añadir al inventario.
+            Registrar un nuevo provedor.
         </template>
 
         <template #form>
-            <!-- Team Name -->
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="name" value="Nombre del producto" />
+                <InputLabel for="fiscal_name" value="Razón Social" />
                 <TextInput
-                    id="name"
-                    v-model="form.name"
+                    id="fiscal_name"
+                    v-model="form.fiscal_name"
                     type="text"
                     class="block w-full mt-1"
                     autofocus
-                    placeholder="Ej. Coca cola"
                 />
-                <InputError :message="form.errors.name" class="mt-2" />
+                <InputError :message="form.errors.fiscal_name" class="mt-2" />
             </div>
             <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
                 <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="cost" value="Costo" />
+                    <InputLabel for="trade_name" value="Nombre comercial" />
                     <TextInput
-                        id="cost"
-                        v-model="form.cost"
+                        id="trade_name"
+                        v-model="form.trade_name"
                         type="text"
                         class="mt-1 block w-full"
-                        autocomplete="cost"
-                        placeholder="Ej. 99.00"
+                        autocomplete="trade_name"
                     />
-                    <InputError :message="form.errors.weight" class="mt-2" />
+                    <InputError :message="form.errors.trade_name" class="mt-2" />
                 </div>
 
                 <div class="col-span-6 sm:col-span-3 relative">
-                    <InputLabel for="unit" value="Unidad" />
+                    <InputLabel for="responsible_contact" value="Contacto responsable" />
                     <TextInput
-                        id="unit"
-                        v-model="form.unit"
+                        id="responsible_contact"
+                        v-model="form.responsible_contact"
                         class="mt-1 block w-full"
-                        autocomplete="unit"
-                        placeholder="Ej. KG"
-                        @focus="CustomSelecetUnit = true"
-                        
+                        autocomplete="responsible_contact"
                     />
-                    <div @mouseleave="CustomSelecetUnit = false" v-show="CustomSelecetUnit" @mouseover="CustomSelecetUnit = true" class="absolute flex flex-col cursor-pointer bg-gray-100 rounded-b-md shadow-lg w-full border border-gray-200">
-                        <span v-for="item in CustomSelectUnitData" @click="form.unit = item" class="hover:bg-gray-300 font-semibold w-full p-2">{{ item }}</span>
-                    </div>
-                    <InputError :message="form.errors.height" class="mt-2" />
+                    <InputError :message="form.errors.responsible_contact" class="mt-2" />
                 </div>
             </div>
             <div class="col-span-6 sm:col-span-4">
@@ -150,27 +131,26 @@ const CustomSelectUnitData = ref([
             </div>
             <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
                 <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="stock" value="Disponibilidad (stock)" />
+                    <InputLabel for="phone" value="Teléfono" />
                     <TextInput
-                        id="stock"
-                        v-model="form.stock"
+                        id="phone"
+                        v-model="form.phone"
                         type="text"
                         class="mt-1 block w-full"
-                        autocomplete="stock"
-                        placeholder=""
+                        autocomplete="phone"
                     />
-                    <InputError :message="form.errors.stock" class="mt-2" />
+                    <InputError :message="form.errors.phone" class="mt-2" />
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="physical_inventory" value="Disponiblidad fisica" />
+                    <InputLabel for="mail" value="Correo electrónico" />
                     <TextInput
-                        id="physical_inventory"
-                        v-model="form.physical_inventory"
+                        id="mail"
+                        v-model="form.mail"
                         class="mt-1 block w-full"
-                        autocomplete="physical_inventory"
+                        autocomplete="mail"
                     />
-                    <InputError :message="form.errors.physical_inventory" class="mt-2" />
+                    <InputError :message="form.errors.mail" class="mt-2" />
                 </div>
             </div>
             <div class="col-span-6 sm:col-span-4">
