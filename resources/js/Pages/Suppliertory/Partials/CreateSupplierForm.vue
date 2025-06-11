@@ -140,18 +140,19 @@ const CustomSelectUnitData = ref([
                     <InputError :message="form.errors.phone" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-2">
-                <InputLabel for="payment" value="Payment Method" />
+                <InputLabel for="payment" value="Método de Pago" />
                 <select
-                    id="paymen"
-                    v-model="form.code"
+                    id="payment"
+                    v-model="form.payment_method"
                     type="text"
-                    class="block w-full mt-1">
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
                     
+                    <option value="null" selected disabled>-- Seleccione un método de pago --</option>
                     <option value="">Efectivo </option>
                     <option value="">Crédito </option>
                     <option value="">Transferencia </option>
                  </select>
-                <InputError :message="form.errors.code" class="mt-2" />
+                <InputError :message="form.errors.payment_method" class="mt-2" />
             </div>
             <br>
             <div class="col-span-6 sm:col-span-2">
