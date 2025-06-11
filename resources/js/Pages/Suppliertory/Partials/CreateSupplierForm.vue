@@ -147,7 +147,7 @@ const CustomSelectUnitData = ref([
                     type="text"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
                     
-                    <option value="null" selected disabled>-- Seleccione un método de pago --</option>
+                    <option value="null" class="bg-gray-100" disabled>-- Seleccione un método de pago --</option>
                     <option value="">Efectivo </option>
                     <option value="">Crédito </option>
                     <option value="">Transferencia </option>
@@ -158,7 +158,7 @@ const CustomSelectUnitData = ref([
             <div class="col-span-6 sm:col-span-2">
                 <InputLabel for="credit-days" value="Dias de Crédito" />
                 <input
-                type="number"
+                type="text"
                     v-model="form.credit_days"
                     id="credit-days"
                     autocomplete="credit_days"
@@ -177,6 +177,7 @@ const CustomSelectUnitData = ref([
                     autocomplete="application_days"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
                 >
+                    <option value="null" class="bg-gray-100" disabled >-- Seleccione un tipo de solicitud --</option>
                     <option value="Call">Llamada</option>
                     <option value="Email">Correo</option>
                     <option value="WhatsApp">WhatsApp</option>
@@ -187,14 +188,17 @@ const CustomSelectUnitData = ref([
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="seal-type" value="Seal type" />
-                <TextInput
+                <InputLabel for="seal-type" value="Tipo de sello" />
+                <select
                     id="seal-type"
                     v-model="form.seal_type"
                     type="text"
-                    class="block w-full mt-1"
+                    class="block w-full mt-1">
                     
-                />
+                    <option value="null" class="bg-gray-100" disabled >-- Estado de pago --</option>
+                    <option value="WhatsApp" class="bg-green-200">RECIBIDO / PAGADO</option>
+                    <option value="Website" class="bg-red-200">PENDIENTE DE PAGO</option>
+            </select>
                 <InputError :message="form.errors.seal_type" class="mt-2" />
             </div>
         </template>
