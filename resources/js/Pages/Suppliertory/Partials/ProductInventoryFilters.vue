@@ -2,54 +2,44 @@
 import { useForm } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3';
 import { ref } from 'vue';
-
 const props = defineProps({
-  params: {
-    type: Object,
-    default: () => ({}),
-  },
+    params: Object,
 });
 
 const filterForm = useForm({
-  name: props.params.name ?? '',
-  type: props.params.type ?? 'Todos',
-  supplier: props.params.supplier ?? '',
+    name: props.params.name,
+    type: props.params?.type || 'Todos',
+    supplier: props.params.supplier,
 });
-
 const filters = ref({
-  name: props.params.name ?? '',
-  type: props.params.type ?? 'Todos',
-  supplier: props.params.supplier ?? '',
+    name: props.params.name,
+    type: props.params?.type || 'Todos',
+    supplier: props.params.supplier,
 });
-
 const Types = [
-  'Carnes',
-  'Cremeria',
-  'Abarrotes',
-  'Frutas y verduras',
-  'Suministros',
-  'Producciones',
-  'Quimicos',
-  'Odisa',
-  'Eurote',
-  'Acción alimentacia',
-  'Delipan',
-  'Delinats',
-  'Coffe solutions',
-  'Otros',
+    'Carnes',
+    'Cremeria',
+    'Abarrotes',
+    'Frutas y verduras',
+    'Suministros',
+    'Producciones',
+    'Quimicos',
+    'Odisa',
+    'Eurote',
+    'Acción alimentacia',
+    'Delipan',
+    'Delinats',
+    'Coffe solutions',
+    'Otros',
 ];
 
 const submitFilter = (key) => {
-  const updatedParams = {
-    ...props.params,
-    [key]: filterForm[key],
-    page: 1,
-  };
-
-  router.get(route('inventory.index', updatedParams));
-};
+    props.params[key] = filterForm[key];
+    const Queries = {...props.params, page: 1};
+    
+    router.get(route('inventory.index', Queries));
+}
 </script>
-
 <template>
 <div class="flex gap-4 flex-col md:flex-row px-2">
     <div class="w-full">

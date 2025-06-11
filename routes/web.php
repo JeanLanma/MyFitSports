@@ -9,6 +9,7 @@ use App\Http\Controllers\Erp\Inventory\ProductCategoriesController;
 use App\Http\Controllers\ERP\Inventory\ProductsController;
 use App\Http\Controllers\ERP\SalesController;
 use App\Http\Controllers\ERP\Supplier\SupplierController;
+use App\Http\Controllers\ERP\Suppliertory\SuppliertoryController;
 use App\Http\Controllers\Teams\TeamsController;
 use App\Http\Controllers\Workouts\WorkoutController;
 use Illuminate\Foundation\Application;
@@ -78,6 +79,9 @@ Route::middleware([
 
     Route::get('/product-categories', [ProductCategoriesController::class, 'index'])->name('product-categories.index');
     Route::get("/supplier", [SupplierController::class, "index"]);
+    Route::get("/suppliertory", [SuppliertoryController::class, "index"]);
+    Route::get('/suppliertory/products/create', [SuppliertoryController::class, 'create'])->name('supllier.create');
+  
 
 
     //Exports
