@@ -21,7 +21,6 @@ const form = useForm({
     trade_name: props.supplier.trade_name,
     responsible_contact: props.supplier.responsible_contact,
     phone: props.supplier.phone,
-    mail: props.supplier.mail,
     payment_method: props.supplier.payment_method,
     credit_days: props.supplier.credit_days,
     application_type: props.supplier.application_type,
@@ -95,30 +94,6 @@ const CustomSelectUnitData = ref([
                 />
                 <InputError :message="form.errors.fiscal_name" class="mt-2" />
             </div>
-            <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
-                <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="trade_name" value="Nombre comercial" />
-                    <TextInput
-                        id="trade_name"
-                        v-model="form.trade_name"
-                        type="text"
-                        class="mt-1 block w-full"
-                        autocomplete="trade_name"
-                    />
-                    <InputError :message="form.errors.trade_name" class="mt-2" />
-                </div>
-
-                <div class="col-span-6 sm:col-span-3 relative">
-                    <InputLabel for="responsible_contact" value="Contacto responsable" />
-                    <TextInput
-                        id="responsible_contact"
-                        v-model="form.responsible_contact"
-                        class="mt-1 block w-full"
-                        autocomplete="responsible_contact"
-                    />
-                    <InputError :message="form.errors.responsible_contact" class="mt-2" />
-                </div>
-            </div>
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="supplier" value="Provedor" />
                 <TextInput
@@ -131,6 +106,29 @@ const CustomSelectUnitData = ref([
             </div>
             <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
                 <div class="col-span-6 sm:col-span-3">
+                    <InputLabel for="trade_name" value="Nombre comercial" />
+                    <TextInput
+                        id="trade_name"
+                        v-model="form.trade_name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        autocomplete="trade_name"
+                    />
+                    <InputError :message="form.errors.trade_name" class="mt-2" />
+                </div>
+                <div class="col-span-6 sm:col-span-3 relative">
+                    <InputLabel for="responsible_contact" value="Contacto responsable" />
+                    <TextInput
+                        id="responsible_contact"
+                        v-model="form.responsible_contact"
+                        class="mt-1 block w-full"
+                        autocomplete="responsible_contact"
+                    />
+                    <InputError :message="form.errors.responsible_contact" class="mt-2" />
+                </div>
+            </div>
+           <br>
+            <div class="col-span-6 sm:col-span-2">
                     <InputLabel for="phone" value="Teléfono" />
                     <TextInput
                         id="phone"
@@ -140,73 +138,63 @@ const CustomSelectUnitData = ref([
                         autocomplete="phone"
                     />
                     <InputError :message="form.errors.phone" class="mt-2" />
-                </div>
-
-                <div class="col-span-6 sm:col-span-3">
-                    <InputLabel for="mail" value="Correo electrónico" />
-                    <TextInput
-                        id="mail"
-                        v-model="form.mail"
-                        class="mt-1 block w-full"
-                        autocomplete="mail"
-                    />
-                    <InputError :message="form.errors.mail" class="mt-2" />
-                </div>
             </div>
-            <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="code" value="Codigo (opcional)" />
-                <TextInput
-                    id="code"
+            <div class="col-span-6 sm:col-span-2">
+                <InputLabel for="payment" value="Payment Method" />
+                <select
+                    id="paymen"
                     v-model="form.code"
                     type="text"
-                    class="block w-full mt-1"
-                    placeholder="Ej. 0001"
-                />
+                    class="block w-full mt-1">
+                    
+                    <option value="">Efectivo </option>
+                    <option value="">Crédito </option>
+                    <option value="">Transferencia </option>
+                 </select>
                 <InputError :message="form.errors.code" class="mt-2" />
             </div>
             <br>
             <div class="col-span-6 sm:col-span-2">
-                <InputLabel for="status" value="Estatus" />
-                <select 
-                    v-model="form.status"
-                    id="status"
-                    name="gender" 
-                    autocomplete="gender"
+                <InputLabel for="credit-days" value="Dias de Crédito" />
+                <input
+                type="number"
+                    v-model="form.credit_days"
+                    id="credit-days"
+                    autocomplete="credit_days"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
                 >
-                    <option v-for="status in Status" :value="status">{{status}}</option>
-                </select>
-                <InputError :message="form.errors.gender" class="mt-2" />
+                    
+            </input>
+                <InputError :message="form.errors.credit_days" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-2">
-                <InputLabel for="type" value="Categoria" />
+                <InputLabel for="application-type" value="Tipo de Solicitud" />
                 <select
                     required
-                    v-model="form.type"
-                    id="type"
-                    name="gender" 
-                    autocomplete="gender"
+                    v-model="form.application_type"
+                    id="application-type"
+                    autocomplete="application_days"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
                 >
-                    <option v-for="type in Types" :value="type">{{type}}</option>
+                    <option value="Call">Llamada</option>
+                    <option value="Email">Correo</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Website">Página de Internet</option>
+                    
                 </select>
-                <InputError :message="form.errors.gender" class="mt-2" />
+                <InputError :message="form.errors.application_type" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <!-- <InputLabel for="code" value="Codigo (opcional)" /> -->
-                <div class="flex w-full ">
-                    <div class="rounded-md border border-gray-100 bg-white p-4 shadow-md">
-                        <label for="upload" class="flex flex-col items-center gap-2 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-white stroke-indigo-500" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <span class="text-gray-600 font-medium">Cargar imagen</span>
-                        </label>
-                        <input id="upload" type="file" class="hidden" />
-                    </div>
-                </div>
-                <InputError :message="form.errors.name" class="mt-2" />
+                <InputLabel for="seal-type" value="Seal type" />
+                <TextInput
+                    id="seal-type"
+                    v-model="form.seal_type"
+                    type="text"
+                    class="block w-full mt-1"
+                    
+                />
+                <InputError :message="form.errors.seal_type" class="mt-2" />
             </div>
         </template>
 
