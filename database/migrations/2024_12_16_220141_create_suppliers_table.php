@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('payment_method')->nullable();//credito, transferencia, efectivo
             $table->string('credit_days')->nullable()->default('N/A');
             $table->string('request_type')->nullable()->default('N/A');// Pagina, Corre, Llamada
-            $table->string('stamp_type')->nullable()->default('N/A');// pendiente de pago, recibido pagado
 
             $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('set null');
 
