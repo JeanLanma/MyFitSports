@@ -21,4 +21,24 @@ class SupplierController extends Controller
     {
         return inertia('Supplier/SupplierCreate');
     }
+
+      public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:0',
+        ]);
+
+        // Here you would typically save the data to the database
+        // For example:
+        // Product::create($data);
+
+        return response()->json([
+            'message' => 'Product created successfully.',
+            'data' => $data,
+        ], 201);
+        return redirect()->route('suppliertory.index')->with('success', 'Product created successfully.');
+    }
 }
