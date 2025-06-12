@@ -26,7 +26,7 @@ const props = defineProps({
     <AppLayout title="Añadir nuevo producto">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Nuevo producto
+                Añadir proveedor
             </h2>
         </template>
 

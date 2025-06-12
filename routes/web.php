@@ -79,7 +79,7 @@ Route::middleware([
     Route::get('/product-categories', [ProductCategoriesController::class, 'index'])->name('product-categories.index');
     
     // Suplier
-    Route::get("/supplier", [SupplierController::class, "index"]);
+    Route::get("/supplier", [SupplierController::class, "index"])->name("supplier.index");
     Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
   
 
