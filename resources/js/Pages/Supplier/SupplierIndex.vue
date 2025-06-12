@@ -1,9 +1,8 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import InventoryList from './Partials/SuppliertoryList.vue';
 import ProductInventoryFilters from './Partials/ProductInventoryFilters.vue';
 import PaginationRounded from '@/Shared/PaginationRounded.vue';
-import SuppliertoryList from './Partials/SuppliertoryList.vue';
+import SupplierList from './Partials/SupplierList.vue';
 
 const props = defineProps({
     products: Object,
@@ -25,7 +24,7 @@ const props = defineProps({
                 <!-- <ProductInventoryFilters :params="props.params" /> -->
 
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <SuppliertoryList
+                    <SupplierList
                         :products="props.products"
                     />
                 </div>
