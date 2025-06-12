@@ -20,7 +20,6 @@ class Supplier extends Model
         'payment_method',
         'credit_days',
         'request_type',
-        'stamp_type',
     ];
 
     public function category()
