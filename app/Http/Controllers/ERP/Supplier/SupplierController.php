@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\ERP\Supplier;
 
-use App\Http\Controllers\Controller;
 use App\Resources\Erp\Inventory\GetProduct;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Erp\Suppliers\StoreSupplierRequest;
+use App\Resources\Erp\Supplier\PostSupplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -22,22 +24,14 @@ class SupplierController extends Controller
         return inertia('Supplier/SupplierCreate');
     }
 
-      public function store(Request $request)
+      public function store(StoreSupplierRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
-        ]);
 
-        // Here you would typically save the data to the database
-        // For example:
-        // Product::create($data);
+        PostSupplier::Create($request->validated());
 
         return response()->json([
             'message' => 'Product created successfully.',
-            'data' => $data,
+            'data' => $request->validated(),
         ], 201);
         return redirect()->route('suppliertory.index')->with('success', 'Product created successfully.');
     }

@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->string('company_reason');
-            $table->string('company_name');
-            $table->string('contact_person')->nullable();
+            $table->string('fiscal_name');
+            $table->string('trade_name');
+            $table->string('responsible_contact')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->string('address')->nullable();
+            $table->string('mail')->nullable();
             $table->string('payment_method')->nullable();//credito, transferencia, efectivo
             $table->string('credit_days')->nullable()->default('N/A');
-            $table->string('request_type')->nullable()->default('N/A');// Pagina, Corre, Llamada
+            $table->string('application_type')->nullable()->default('N/A');// Pagina, Corre, Llamada
+            $table->string('seal_type')->nullable()->default('N/A');// Pagina, Corre, Llamada
 
             $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('set null');
 

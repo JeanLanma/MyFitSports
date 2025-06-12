@@ -11,15 +11,15 @@ class Supplier extends Model
 
     protected $fillable = [
         'category_id',
-        'company_reason',
-        'company_name',
-        'contact_person',
+        'fiscal_name',
+        'trade_name',
+        'responsible_contact',
         'phone',
-        'email',
-        'address',
-        'payment_method',
-        'credit_days',
-        'request_type',
+        'mail',
+        'payment_method', // credito, transferencia, efectivo
+        'credit_days', // Default: N/A
+        'application_type', // Default: N/A
+        'seal_type' // Default: N/A
     ];
 
     public function category()
