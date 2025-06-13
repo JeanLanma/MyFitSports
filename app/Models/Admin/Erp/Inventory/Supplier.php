@@ -16,6 +16,7 @@ class Supplier extends Model
         'responsible_contact',
         'phone',
         'mail',
+        'web_url',
         'payment_method', // credito, transferencia, efectivo
         'credit_days', // Default: N/A
         'application_type', // Default: N/A

@@ -11,7 +11,7 @@ class GetSuppliers
         return $Supplier_;
     }
 
-    public static function Paginated($Search, $limit = 25)
+    public static function Paginated($Search, $orderBy = [], $limit = 25)
     {
         $_limit = (isset($Search['per_page']) && is_numeric($Search['per_page']) && $Search['per_page'] > 0) ? $Search['per_page'] : $limit;
         $Supplier_ = SupplierModel::when(isset($Search['fiscal_name']), function ($query) use ($Search) {
@@ -43,6 +43,11 @@ class GetSuppliers
                                     })
                                     ->when(isset($Search['category_id']), function ($query) use ($Search) {
                                         $query->where('category_id', $Search['category_id']);
+                                    })
+                                    ->when(!empty($orderBy), function ($query) use ($orderBy) {
+                                        foreach ($orderBy as $field => $direction) {
+                                            $query->orderBy($field, $direction);
+                                        }
                                     })
                                     ->paginate($_limit);
         return $Supplier_;

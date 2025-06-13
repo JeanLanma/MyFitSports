@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('responsible_contact')->nullable();
             $table->string('phone')->nullable();
             $table->string('mail')->nullable();
+            $table->string('web_url')->nullable();
             $table->string('payment_method')->nullable();//credito, transferencia, efectivo
             $table->string('credit_days')->nullable()->default('N/A');
             $table->string('application_type')->nullable()->default('N/A');// Pagina, Corre, Llamada

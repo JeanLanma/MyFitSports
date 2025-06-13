@@ -22,15 +22,15 @@ class StoreSupplierRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'category_id' => 'required|exists:product_categories,id',
             'category_id' => 'required',
             'fiscal_name' => 'required|string|max:255',
             'trade_name' => 'nullable|string|max:255',
             'responsible_contact' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
+            'phone' => 'nullable|string|max:20',
+            'web_url' => 'nullable|string',
             'mail' => 'nullable|email|max:255',
             'payment_method' => 'required',
-            'credit_days' => 'nullable|integer|min:0',
+            'credit_days' => 'nullable|string',
             'application_type' => 'nullable|string|max:255',
             'seal_type' => 'nullable|string|max:255',
         ];

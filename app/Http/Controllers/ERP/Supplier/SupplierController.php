@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ERP\Supplier;
 use App\Resources\Erp\Inventory\GetProduct;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Erp\Suppliers\StoreSupplierRequest;
+use App\Resources\Erp\Supplier\GetSuppliers;
 use App\Resources\Erp\Supplier\PostSupplier;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class SupplierController extends Controller
 {
     public function index()
     {
-        $products = GetProduct::Paginated(request()->all());
+        $suppliers = GetSuppliers::Paginated(request()->all(), [], 25);
         return inertia('Supplier/SupplierIndex', [
-            'products' => $products,
+            'suppliers' => $suppliers,
             'params' => request()->all()
         ]);
     }
