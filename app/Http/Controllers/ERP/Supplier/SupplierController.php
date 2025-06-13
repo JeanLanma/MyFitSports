@@ -27,6 +27,8 @@ class SupplierController extends Controller
       public function store(StoreSupplierRequest $request)
     {
 
+       // dd($request->all());
+
         PostSupplier::Create($request->validated());
 
         return response()->json([
@@ -35,4 +37,6 @@ class SupplierController extends Controller
         ], 201);
         return redirect()->route('suppliertory.index')->with('success', 'Product created successfully.');
     }
+
+
 }

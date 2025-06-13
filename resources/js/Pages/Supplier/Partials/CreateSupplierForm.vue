@@ -15,61 +15,40 @@ const props = defineProps({
 
 const toast = useToast();
 
+
 const form = useForm({
-    category: props.supplier.category,
-    fiscal_name: props.supplier.fiscal_name,
-    trade_name: props.supplier.trade_name,
-    responsible_contact: props.supplier.responsible_contact,
-    phone: props.supplier.phone,
-    payment_method: props.supplier.payment_method,
-    credit_days: props.supplier.credit_days,
-    application_type: props.supplier.application_type,
-    seal_type: props.supplier.seal_type,
-    id: props.supplier.id,
+    category_id: props.supplier.category_id,
+    fiscal_name: props.supplier.fiscal_name || ``,
+    trade_name: props.supplier.trade_name || ``,
+    responsible_contact: props.supplier.responsible_contact || ``,
+    phone: props.supplier.phone || ``,
+    mail: props.supplier.mail || '',
+    payment_method: props.supplier.payment_method || ``,
+    credit_days: props.supplier.credit_days ?? ``,
+    application_type: props.supplier.application_type || ``,
+    seal_type: props.supplier.seal_type || ``,
 });
 
 const SubmitProduct = () => {
-    form.post(route('products.store'), {
+    form.post(route('supplier.store'), {
         preserveScroll: true,
         onSuccess: () => {
-            toast.success('Producto añadido correctamente');
+            toast.success('Proveedor añadido correctamente');
             form.reset();
-            router.push(route('products.index'));
+            router.push(route('supplier.index'));
         },
         onError: () => {
-            toast.error('Hubo un error al añadir el producto, recargue la página e intente de nuevo');
+            toast.error('Hubo un error al añadir al proveedor, recargue la página e intente de nuevo');
         },
     });
 }
 
-const Status = [
-    'activo',
-    'inactivo',
-];
-const Types = [
-    'Carnes',
-    'Cremeria',
-    'Abarrotes',
-    'Frutas y verduras',
-    'Suministros',
-    'Producciones',
-    'Quimicos',
-    'Odisa',
-    'Eurote',
-    'Acción alimentacia',
-    'Delipan',
-    'Delinats',
-    'Coffe solutions',
-    'Otros',
-]
+//Validate that the data form has sent the correct data
+function showForm(){ 
+console.log("Estos son los datos del form: ", form);
+}
 
-// Utils
-const CustomSelecetUnit = ref(false);
-const CustomSelectUnitData = ref([
-    'KG',
-    'PAQ',
-    '650ml',
-]);
+
 </script>
 
 <template>
@@ -95,14 +74,24 @@ const CustomSelectUnitData = ref([
                 <InputError :message="form.errors.fiscal_name" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="supplier" value="Provedor" />
+                <InputLabel for="category" value="Familia" />
                 <TextInput
-                    id="supplier"
-                    v-model="form.supplier"
+                    id="category"
+                    v-model="form.category_id"
                     type="text"
                     class="block w-full mt-1"
                 />
-                <InputError :message="form.errors.supplier" class="mt-2" />
+                <InputError :message="form.errors.category_id" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="email" value="Correo Electronico" />
+                <TextInput
+                      id="mail"
+                       v-model="form.mail" 
+                       type="text"
+                       class="block w-full mt-1"
+                />
+                <InputError :message="form.errors.mail" class="mt-2"/>
             </div>
             <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
                 <div class="col-span-6 sm:col-span-3">
@@ -144,13 +133,12 @@ const CustomSelectUnitData = ref([
                 <select
                     id="payment"
                     v-model="form.payment_method"
-                    type="text"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
                     
                     <option value="null" class="bg-gray-100" disabled>-- Seleccione un método de pago --</option>
-                    <option value="">Efectivo </option>
-                    <option value="">Crédito </option>
-                    <option value="">Transferencia </option>
+                    <option value="Efectivo">Efectivo </option>
+                    <option value="Credito">Crédito </option>
+                    <option value="Transferencia">Transferencia </option>
                  </select>
                 <InputError :message="form.errors.payment_method" class="mt-2" />
             </div>
@@ -192,12 +180,11 @@ const CustomSelectUnitData = ref([
                 <select
                     id="seal-type"
                     v-model="form.seal_type"
-                    type="text"
                     class="block w-full mt-1">
                     
                     <option value="null" class="bg-gray-100" disabled >-- Estado de pago --</option>
-                    <option value="WhatsApp" class="bg-green-200">RECIBIDO / PAGADO</option>
-                    <option value="Website" class="bg-red-200">PENDIENTE DE PAGO</option>
+                    <option value="Pagado" class="bg-green-200">RECIBIDO / PAGADO</option>
+                    <option value="Pendiente de pago" class="bg-red-200">PENDIENTE DE PAGO</option>
             </select>
                 <InputError :message="form.errors.seal_type" class="mt-2" />
             </div>
