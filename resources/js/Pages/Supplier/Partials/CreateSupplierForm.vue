@@ -7,7 +7,6 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useToast } from "vue-toastification";
 import { router } from '@inertiajs/vue3';
-import { ref } from 'vue';
 
 const props = defineProps({
     supplier: Object
@@ -27,6 +26,7 @@ const form = useForm({
     credit_days: props.supplier.credit_days ?? ``,
     application_type: props.supplier.application_type || ``,
     seal_type: props.supplier.seal_type || ``,
+    weburl: props.supplier.weburl || '',
 });
 
 const SubmitProduct = () => {
@@ -38,7 +38,7 @@ const SubmitProduct = () => {
             router.push(route('supplier.index'));
         },
         onError: () => {
-            toast.error('Hubo un error al añadir al proveedor, recargue la página e intente de nuevo');
+            toast.error('Hubo un error, recargue la página e intente de nuevo');
         },
     });
 }
@@ -62,7 +62,7 @@ console.log("Estos son los datos del form: ", form);
         </template>
 
         <template #form>
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-3">
                 <InputLabel for="fiscal_name" value="Razón Social" />
                 <TextInput
                     id="fiscal_name"
@@ -73,7 +73,7 @@ console.log("Estos son los datos del form: ", form);
                 />
                 <InputError :message="form.errors.fiscal_name" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-3">
                 <InputLabel for="category" value="Familia" />
                 <TextInput
                     id="category"
@@ -83,17 +83,7 @@ console.log("Estos son los datos del form: ", form);
                 />
                 <InputError :message="form.errors.category_id" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="email" value="Correo Electronico" />
-                <TextInput
-                      id="mail"
-                       v-model="form.mail" 
-                       type="text"
-                       class="block w-full mt-1"
-                />
-                <InputError :message="form.errors.mail" class="mt-2"/>
-            </div>
-            <div class="col-span-6 py-3 sm:col-span-4 grid grid-cols-6 gap-6">
+            <div class="col-span-6 py-3 grid grid-cols-6 gap-6">
                 <div class="col-span-6 sm:col-span-3">
                     <InputLabel for="trade_name" value="Nombre comercial" />
                     <TextInput
@@ -116,17 +106,23 @@ console.log("Estos son los datos del form: ", form);
                     <InputError :message="form.errors.responsible_contact" class="mt-2" />
                 </div>
             </div>
-           <br>
             <div class="col-span-6 sm:col-span-2">
-                    <InputLabel for="phone" value="Teléfono" />
-                    <TextInput
-                        id="phone"
-                        v-model="form.phone"
-                        type="text"
-                        class="mt-1 block w-full"
-                        autocomplete="phone"
-                    />
-                    <InputError :message="form.errors.phone" class="mt-2" />
+                <InputLabel for="application-type" value="Tipo de Solicitud" />
+                <select
+                    required
+                    v-model="selectedOption"
+                    id="application-type"
+                    autocomplete="application_days"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                >
+                    <option value="null" class="bg-gray-100" disabled >-- Seleccione un tipo de solicitud --</option>
+                    <option value="Call">Llamada</option>
+                    <option value="Email">Correo</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Website">Página de Internet</option>
+                    
+                </select>
+                <InputError :message="form.errors.application_type" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-2">
                 <InputLabel for="payment" value="Método de Pago" />
@@ -142,8 +138,7 @@ console.log("Estos son los datos del form: ", form);
                  </select>
                 <InputError :message="form.errors.payment_method" class="mt-2" />
             </div>
-            <br>
-            <div class="col-span-6 sm:col-span-2">
+            <div class="col-span-2 sm:col-span-2">
                 <InputLabel for="credit-days" value="Dias de Crédito" />
                 <input
                 type="text"
@@ -156,26 +151,32 @@ console.log("Estos son los datos del form: ", form);
             </input>
                 <InputError :message="form.errors.credit_days" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-2">
-                <InputLabel for="application-type" value="Tipo de Solicitud" />
-                <select
-                    required
-                    v-model="form.application_type"
-                    id="application-type"
-                    autocomplete="application_days"
-                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
-                >
-                    <option value="null" class="bg-gray-100" disabled >-- Seleccione un tipo de solicitud --</option>
-                    <option value="Call">Llamada</option>
-                    <option value="Email">Correo</option>
-                    <option value="WhatsApp">WhatsApp</option>
-                    <option value="Website">Página de Internet</option>
-                    
-                </select>
-                <InputError :message="form.errors.application_type" class="mt-2" />
-            </div>
 
-            <div class="col-span-6 sm:col-span-4">
+            <div v-if="selectedOption === 'Email'" class="col-span-2 ">
+                <InputLabel for="email" value="Correo Electronico" />
+                <TextInput
+                      id="mail"
+                       v-model="form.mail" 
+                       type="text"
+                       class="block w-full mt-1"
+                />
+                <InputError :message="form.errors.mail" class="mt-2"/>
+            </div>
+           <br>
+            <div v-if="selectedOption === 'Call' || selectedOption === 'Whatsapp'" class="col-span-2">
+                    <InputLabel for="phone" value="Teléfono" />
+                    <TextInput
+                        id="phone"
+                        v-model="form.phone"
+                        type="text"
+                        class="mt-1 block w-full"
+                        autocomplete="phone"
+                    />
+                    <InputError :message="form.errors.phone" class="mt-2" />
+            </div>
+            
+        
+            <div class="col-span-4">
                 <InputLabel for="seal-type" value="Tipo de sello" />
                 <select
                     id="seal-type"
