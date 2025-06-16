@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useToast } from "vue-toastification";
 import { router } from '@inertiajs/vue3';
+import { watch, ref } from 'vue';
 
 const props = defineProps({
     supplier: Object
@@ -47,6 +48,7 @@ const SubmitProduct = () => {
 function showForm(){ 
 console.log("Estos son los datos del form: ", form);
 }
+
 
 
 </script>
@@ -107,13 +109,14 @@ console.log("Estos son los datos del form: ", form);
                 </div>
             </div>
             <div class="col-span-6 sm:col-span-2">
-                <InputLabel for="application-type" value="Tipo de Solicitud" />
+                <InputLabel for="application-type" value="Tipo de Solicitud"  />
                 <select
                     required
-                    v-model="selectedOption"
+                    v-model="application_type"
                     id="application-type"
                     autocomplete="application_days"
                     class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
+                    
                 >
                     <option value="null" class="bg-gray-100" disabled >-- Seleccione un tipo de solicitud --</option>
                     <option value="Call">Llamada</option>
@@ -152,7 +155,7 @@ console.log("Estos son los datos del form: ", form);
                 <InputError :message="form.errors.credit_days" class="mt-2" />
             </div>
 
-            <div v-if="selectedOption === 'Email'" class="col-span-2 ">
+            <div v-if="application_type === 'Email'" class="col-span-2 ">
                 <InputLabel for="email" value="Correo Electronico" />
                 <TextInput
                       id="mail"
@@ -163,7 +166,7 @@ console.log("Estos son los datos del form: ", form);
                 <InputError :message="form.errors.mail" class="mt-2"/>
             </div>
            <br>
-            <div v-if="selectedOption === 'Call' || selectedOption === 'Whatsapp'" class="col-span-2">
+            <div v-if="application_type === 'Call' || application_type === 'Whatsapp'" class="col-span-2">
                     <InputLabel for="phone" value="Teléfono" />
                     <TextInput
                         id="phone"

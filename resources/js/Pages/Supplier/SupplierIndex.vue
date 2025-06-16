@@ -5,9 +5,11 @@ import PaginationRounded from '@/Shared/PaginationRounded.vue';
 import SupplierList from './Partials/SupplierList.vue';
 
 const props = defineProps({
-    supplier: Object,
+    suppliers: Object,
     params: Object | Array
 });
+
+console.log(props.supplier);
 </script>
 
 <template>
@@ -25,14 +27,14 @@ const props = defineProps({
 
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <SupplierList
-                        :products="props.products"
+                        :suppliers="props.suppliers"
                     />
                 </div>
 
                 <!-- Pagination -->
                 <div class="my-4">
                     <nav class="flex justify-end" aria-label="Page navigation">
-                        <PaginationRounded :PaginationObject="props.products" :Params="props.params" />
+                        <PaginationRounded :PaginationObject="props.suppliers" :Params="props.params" />
                     </nav>
                  </div>
             </div>
