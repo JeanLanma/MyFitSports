@@ -5,7 +5,7 @@ import PaginationRounded from '@/Shared/PaginationRounded.vue';
 import SupplierList from './Partials/SupplierList.vue';
 
 const props = defineProps({
-    products: Object,
+    supplier: Object,
     params: Object | Array
 });
 </script>
