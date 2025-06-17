@@ -6,8 +6,9 @@ import SupplierList from "./Partials/SupplierList.vue";
 
 const props = defineProps({
     suppliers: Object,
-    params: Object | Array,
+    params: Object | Array
 });
+
 </script>
 
 <template>
@@ -19,20 +20,18 @@ const props = defineProps({
         </template>
 
         <div class="py-12">
-            <div class="w-full mx-auto sm:px-6 lg:px-8">
-                <!-- <ProductInventoryFilters :params="props.params" /> -->
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <SupplierList :suppliers="props.suppliers" />
+                    <SupplierList
+                        :suppliers="props.suppliers"
+                    />
                 </div>
 
                 <!-- Pagination -->
                 <div class="my-4">
                     <nav class="flex justify-end" aria-label="Page navigation">
-                        <PaginationRounded
-                            :PaginationObject="props.suppliers"
-                            :Params="props.params"
-                        />
+                        <PaginationRounded :PaginationObject="props.suppliers" :Params="props.params" />
                     </nav>
                 </div>
             </div>

@@ -27,16 +27,11 @@ class SupplierController extends Controller
 
       public function store(StoreSupplierRequest $request)
     {
+        if(PostSupplier::Create($request->validated())){
+            return back()->with('success', 'Proveedor creado correctamente.');
+        }
 
-       // dd($request->all());
-
-        PostSupplier::Create($request->validated());
-
-        return response()->json([
-            'message' => 'Product created successfully.',
-            'data' => $request->validated(),
-        ], 201);
-        return redirect()->route('supplier.index')->with('success', 'Product created successfully.');
+        return back()->with('error', 'Error al crear el proveedor. Por favor, inténtelo de nuevo.');
     }
 
 
