@@ -36,7 +36,7 @@ class SupplierController extends Controller
             'message' => 'Product created successfully.',
             'data' => $request->validated(),
         ], 201);
-        return redirect()->route('suppliertory.index')->with('success', 'Product created successfully.');
+        return redirect()->route('supplier.index')->with('success', 'Product created successfully.');
     }
 
 

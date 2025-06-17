@@ -23,16 +23,16 @@ const GetStatusColor = (status) => {
             return "text-gray-500 bg-gray-100 rounded-full";
     }
 };
-const inventory = ref(props.supplier.data);
+const supplier = ref(props.suppliers.data);
 
 const ShowUpdateProductModal = ref(false);
 const CurrentProduct = ref(null);
-const TriggerUpdateProduct = (id) => {
-    CurrentProduct.value = inventory.value.find((p) => p.id === id);
+const TriggerUpdateSupplier = (id) => {
+    CurrentProduct.value = supplier.value.find((p) => p.id === id);
     ShowUpdateProductModal.value = true;
 };
 const UpdateProduct = () => {
-    console.log("Updating product");
+    console.log("Updating supplier");
 };
 const CloseUpdateProductModal = () => {
     ShowUpdateProductModal.value = false;
@@ -48,47 +48,139 @@ const CloseUpdateProductModal = () => {
             @close="CloseUpdateProductModal"
         >
             <template #title>
-                Actualizando:
-                {{ CurrentProduct?.name + " - " + CurrentProduct?.supplier }}
-            </template>
+                <div class="flex items-center justify-center w-full">
+                    <div class="bg-white p-6 rounded shadow w-full">
+                        <h2 class="text-xl font-semibold mb-4">
+                            Editar proveedor
+                        </h2>
+                        <p class="text-gray-700"></p>
+                        <form class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1">
+                                <InputLabel for="category" value="Familia" />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentProduct.category_id"
+                                />
+                            </div>
+                            <div class="grid grid-cols-1">
+                                <InputLabel
+                                    for="razon fiscal"
+                                    value="Razon Social"
+                                />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentProduct.fiscal_name"
+                                />
+                            </div>
+                            <div class="grid grid-cols-1">
+                                <InputLabel
+                                    for="nombre comercial"
+                                    value="Nombre Comercial"
+                                />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentProduct.trade_name"
+                                />
+                            </div>
+                            <div class="grid grid-cols-1">
+                                <InputLabel for="contacto" value="Contacto" />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentProduct.responsible_contact"
+                                />
+                            </div>
+                            <div class="grid grid-cols-1">
+                                <InputLabel
+                                    for="forma de pago"
+                                    value="Forma de pago"
+                                /><select
+                                    id=""
+                                    class=""
+                                    v-model="CurrentProduct.payment_method"
+                                >
+                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Credito">Crédito</option>
+                                    <option value="Transferencia">
+                                        Transferencia
+                                    </option>
+                                </select>
+                            </div>
 
-            <template #content>
-                <div class="">
-                    <div>
-                        <InputLabel for="stock" value="Stock" />
-                        <TextInput
-                            id="stock"
-                            type="text"
-                            class="block w-full mt-1"
-                            autofocus
-                            v-model="CurrentProduct.stock"
-                        />
-                        <InputError :message="''" class="mt-2" />
-                    </div>
-                    <div>
-                        <InputLabel
-                            for="phisycal_inventory"
-                            value="Inventario fisico"
-                        />
-                        <TextInput
-                            id="phisycal_inventory"
-                            type="text"
-                            class="block w-full mt-1"
-                            v-model="CurrentProduct.physical_inventory"
-                        />
-                        <InputError :message="''" class="mt-2" />
+                            <div class="grid grid-cols-1">
+                                <InputLabel
+                                    for="dias de credito"
+                                    value="Días de crédito"
+                                />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentProduct.credit_days"
+                                />
+                            </div>
+                            <div class="grid grid-cols-1">
+                                <InputLabel for="telefono" value="Telefono" />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentProduct.phone"
+                                />
+                            </div>
+                            <div class="grid grid-cols-1">
+                                <InputLabel for="correo" value="Correo" />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentProduct.mail"
+                                />
+                            </div>
+                            <div class="grid grid-cols-1">
+                                <InputLabel for="web" value="Página Web" />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentProduct.web_url"
+                                />
+                            </div>
+                            <div class="grid grid-cols-1 w-full">
+                                <InputLabel
+                                    for="tipo de sello"
+                                    value="Tipo de sello"
+                                />
+                                <select
+                                    id=""
+                                    class=""
+                                    v-model="CurrentProduct.application_type"
+                                >
+                                    <option value="Pagado">
+                                        RECIBIDO / PAGADO
+                                    </option>
+                                    <option value="Pendiente de pago">
+                                        PENDIENTE DE PAGO
+                                    </option>
+                                </select>
+                            </div>
+                        </form>
+
+                        <div class="flex justify-between">
+                            <button
+                                @click.native="CloseUpdateProductModal"
+                                class="mt-4 bg-red-600 text-white px-2 py-2 rounded hover:bg-red-800"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                @click="alert('Guardar cambios')"
+                                class="mt-4 bg-blue-600 text-white px-2 py-2 rounded hover:bg-blue-800"
+                            >
+                                Guardar
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </template>
-
-            <template #footer>
-                <SecondaryButton @click.native="CloseUpdateProductModal">
-                    Cancelar
-                </SecondaryButton>
-
-                <PrimaryButton class="ml-2" @click.native="UpdateProduct">
-                    Actualizar
-                </PrimaryButton>
             </template>
         </DialogModal>
     </section>
@@ -97,7 +189,7 @@ const CloseUpdateProductModal = () => {
         <div class="flex flex-col justify-center h-full">
             <!-- Table -->
             <div
-                class="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200"
+                class="w-full mx-auto bg-white shadow-lg rounded-md border border-gray-200"
             >
                 <header
                     class="px-5 py-4 border-b border-gray-100 flex flex-col md:flex-row justify-between"
@@ -191,6 +283,16 @@ const CloseUpdateProductModal = () => {
                                     </th>
                                     <th class="p-2 whitespace-nowrap">
                                         <div class="font-semibold text-left">
+                                            Correo
+                                        </div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">
+                                            Página Web
+                                        </div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">
                                             Forma de pago
                                         </div>
                                     </th>
@@ -199,7 +301,7 @@ const CloseUpdateProductModal = () => {
                                             Dias de credito
                                         </div>
                                     </th>
-                                    <th class="p-2 whitespace-nowrap hidden">
+                                    <th class="p-2 whitespace-nowrap block">
                                         <div class="font-semibold text-left">
                                             Tipo solcitud
                                         </div>
@@ -217,12 +319,12 @@ const CloseUpdateProductModal = () => {
                                 </tr>
                             </thead>
                             <tbody
-                                v-if="inventory.length > 0"
+                                v-if="supplier.length > 0"
                                 class="text-sm divide-y divide-gray-100"
                             >
                                 <tr
-                                    v-for="inv in inventory"
-                                    :key="inv.id"
+                                    v-for="sup in supplier"
+                                    :key="sup.id"
                                     class="h-14 hover:bg-sky-300 hover:shadow-md"
                                 >
                                     <td class="p-2 whitespace-nowrap">
@@ -230,28 +332,28 @@ const CloseUpdateProductModal = () => {
                                             <div
                                                 class="font-bold text-gray-700"
                                             >
-                                                ABARROTES
+                                                {{ sup.category_id }}
                                             </div>
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="text-gray-700">
-                                                ABARROTES RAUL SA DE CV
+                                                {{ sup.fiscal_name }}
                                             </div>
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="text-gray-700">
-                                                ABARROTES RAUL
+                                                {{ sup.trade_name }}
                                             </div>
                                         </div>
                                     </td>
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="text-gray-700">
-                                                HYRAM
+                                                {{ sup.responsible_contact }}
                                             </div>
                                         </div>
                                     </td>
@@ -260,64 +362,72 @@ const CloseUpdateProductModal = () => {
                                             <div
                                                 class="text-gray-700 font-semibold"
                                             >
-                                                3314324619
+                                                {{ sup.phone }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div
+                                                class="text-gray-700 font-semibold"
+                                            >
+                                                {{ sup.mail }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div
+                                                class="text-gray-700 font-semibold"
+                                            >
+                                                {{ sup.web_url }}
                                             </div>
                                         </div>
                                     </td>
                                     <td
                                         class="p-2 whitespace-nowrap cursor-default"
                                     >
-                                        TRANSFERENCIA
+                                        {{ sup.payment_method }}
                                     </td>
                                     <td
                                         class="p-2 whitespace-nowrap cursor-default font-semibold text-center"
                                     >
                                         <span
                                             class="py-1 px-3"
-                                            :class="GetStatusColor(inv.status)"
+                                            :class="GetStatusColor(sup.status)"
                                         >
-                                            N/A
+                                            {{ sup.credit_days }}
                                         </span>
-                                    </td>
-                                    <td
-                                        class="p-2 whitespace-nowrap cursor-default font-semibold hidden"
-                                    >
-                                        PAGINA INTERNET
                                     </td>
                                     <td
                                         class="p-2 whitespace-nowrap cursor-default font-semibold"
                                     >
-                                        PENDIENTE DE PAGO
+                                        {{ sup.application_type }}
+                                    </td>
+                                    <td
+                                        class="p-2 whitespace-nowrap cursor-default font-semibold"
+                                    >
+                                        {{ sup.seal_type }}
                                     </td>
                                     <td
                                         class="p-2 whitespace-nowrap cursor-default"
                                     >
                                         <div class="flex flex-col gap-2">
-                                            <a
-                                                :href="
-                                                    route(
-                                                        'inventory.show',
-                                                        inv.id
-                                                    )
-                                                "
-                                                class="py-1 text-center text-green-600 rounded-lg font-medium hover:text-white duration-150 underline hover:no-underline hover:bg-green-600 underline-offset-2"
-                                                >Ver detalle</a
-                                            >
-                                            <a
-                                                :href="
-                                                    route(
-                                                        'inventory.show',
-                                                        inv.id
+                                            <button
+                                                @click="
+                                                    TriggerUpdateSupplier(
+                                                        sup.id
                                                     )
                                                 "
                                                 class="py-1 text-center text-sky-600 rounded-lg font-medium hover:text-white duration-150 underline hover:no-underline hover:bg-blue-500 underline-offset-2"
-                                                >Modificar</a
                                             >
+                                                Modificar
+                                            </button>
                                             <a
                                                 :href="
                                                     route(
                                                         'inventory.show',
-                                                        inv.id
+                                                        sup.id
                                                     )
                                                 "
                                                 class="text-center text-red-600 rounded-lg font-medium hover:text-white duration-150 underline hover:no-underline hover:bg-red-500 underline-offset-2"
@@ -343,7 +453,7 @@ const CloseUpdateProductModal = () => {
                                                 <a
                                                     class="text-indigo-500 font-bold text-sm hover:underline hover:underline-offset-2"
                                                     :href="
-                                                        route('products.create')
+                                                        route('supplier.create')
                                                     "
                                                     >agregar nuevo</a
                                                 >

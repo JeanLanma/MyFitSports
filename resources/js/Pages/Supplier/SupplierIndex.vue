@@ -1,12 +1,12 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
-import ProductInventoryFilters from './Partials/ProductInventoryFilters.vue';
-import PaginationRounded from '@/Shared/PaginationRounded.vue';
-import SupplierList from './Partials/SupplierList.vue';
+import AppLayout from "@/Layouts/AppLayout.vue";
+import ProductInventoryFilters from "./Partials/ProductInventoryFilters.vue";
+import PaginationRounded from "@/Shared/PaginationRounded.vue";
+import SupplierList from "./Partials/SupplierList.vue";
 
 const props = defineProps({
-    supplier: Object,
-    params: Object | Array
+    suppliers: Object,
+    params: Object | Array,
 });
 </script>
 
@@ -19,24 +19,23 @@ const props = defineProps({
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+            <div class="w-full mx-auto sm:px-6 lg:px-8">
                 <!-- <ProductInventoryFilters :params="props.params" /> -->
 
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <SupplierList
-                        :products="props.products"
-                    />
+                    <SupplierList :suppliers="props.suppliers" />
                 </div>
 
                 <!-- Pagination -->
                 <div class="my-4">
                     <nav class="flex justify-end" aria-label="Page navigation">
-                        <PaginationRounded :PaginationObject="props.products" :Params="props.params" />
+                        <PaginationRounded
+                            :PaginationObject="props.suppliers"
+                            :Params="props.params"
+                        />
                     </nav>
-                 </div>
+                </div>
             </div>
         </div>
-
     </AppLayout>
 </template>
