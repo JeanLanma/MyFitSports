@@ -35,4 +35,19 @@ class StoreSupplierRequest extends FormRequest
             'seal_type' => 'nullable|string|max:255',
         ];
     }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'category_id.required' => 'El campo categoría es obligatorio.',
+            'fiscal_name.required' => 'El campo nombre fiscal es obligatorio.',
+            'responsible_contact.required' => 'El campo contacto responsable es obligatorio.',
+            'payment_method.required' => 'El campo método de pago es obligatorio.',
+        ];
+    }
 }
