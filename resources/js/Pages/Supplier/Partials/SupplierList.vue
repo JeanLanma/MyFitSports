@@ -1,15 +1,24 @@
 <script setup>
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 import NavigationButton from "@/Shared/NavigationButton.vue";
 import DialogModal from "@/Components/DialogModal.vue";
-import DangerButton from "@/Components/DangerButton.vue";
-import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import Pagination from "@/Shared/Pagination.vue";
-import Format from "@/Utils/Format.js";
 import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
+
+const DefaultProductValue = {
+    category_id: null,
+    fiscal_name: null,
+    trade_name: null,
+    responsible_contact: null,
+    phone: null,
+    mail: null,
+    payment_method: null,
+    credit_days: null,
+    application_type: null,
+    seal_type: null
+};
 
 const props = defineProps({
     suppliers: Object,
@@ -26,17 +35,53 @@ const GetStatusColor = (status) => {
 const supplier = ref(props.suppliers.data);
 
 const ShowUpdateProductModal = ref(false);
-const CurrentProduct = ref(null);
+const CurrentProduct = ref(DefaultProductValue);
 const TriggerUpdateSupplier = (id) => {
     CurrentProduct.value = supplier.value.find((p) => p.id === id);
     ShowUpdateProductModal.value = true;
 };
 const UpdateProduct = () => {
-    console.log("Updating supplier");
+    const updateSupplierForm = useForm({
+        category_id: CurrentProduct.value.category_id,
+        fiscal_name: CurrentProduct.value.fiscal_name,
+        trade_name: CurrentProduct.value.trade_name,
+        responsible_contact: CurrentProduct.value.responsible_contact,
+        phone: CurrentProduct.value.phone,
+        mail: CurrentProduct.value.mail,
+        payment_method: CurrentProduct.value.payment_method,
+        credit_days: CurrentProduct.value.credit_days,
+        application_type: CurrentProduct.value.application_type,
+        seal_type: CurrentProduct.value.seal_type,
+    });
+    updateSupplierForm.post(route("supplier.update", CurrentProduct.value.id), {
+        onSuccess: () => {
+            ShowUpdateProductModal.value = false;
+            CurrentProduct.value = DefaultProductValue;
+        },
+        onError: (errors) => {
+            console.error(errors);
+        },
+    });
 };
 const CloseUpdateProductModal = () => {
     ShowUpdateProductModal.value = false;
-    CurrentProduct.value = null;
+    CurrentProduct.value = DefaultProductValue;
+};
+
+const DeleteEntry = (id) => {
+    // Confirm deletion
+    const DeleteForm = useForm({});
+    if (confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
+        DeleteForm.delete(route("supplier.destroy", id), {
+            onSuccess: () => {
+                // Remove the deleted supplier from the list
+                supplier.value = supplier.value.filter((sup) => sup.id !== id);
+            },
+            onError: (errors) => {
+                console.error(errors);
+            },
+        });
+    }
 };
 </script>
 
@@ -173,7 +218,7 @@ const CloseUpdateProductModal = () => {
                                 Cancelar
                             </button>
                             <button
-                                @click="alert('Guardar cambios')"
+                                @click="UpdateProduct()"
                                 class="mt-4 bg-blue-600 text-white px-2 py-2 rounded hover:bg-blue-800"
                             >
                                 Guardar
@@ -424,12 +469,7 @@ const CloseUpdateProductModal = () => {
                                                 Modificar
                                             </button>
                                             <a
-                                                :href="
-                                                    route(
-                                                        'inventory.show',
-                                                        sup.id
-                                                    )
-                                                "
+                                                @click.prevent="DeleteEntry(sup.id)"
                                                 class="text-center text-red-600 rounded-lg font-medium hover:text-white duration-150 underline hover:no-underline hover:bg-red-500 underline-offset-2"
                                                 >Eliminar</a
                                             >

@@ -174,7 +174,6 @@ function showForm() {
             </div>
 
             <div v-if="form.application_type === 'E-mail'" class="col-span-2">
-            <div v-if="form.application_type === 'Email'" class="col-span-2 ">
                 <InputLabel for="email" value="Correo Electronico" />
                 <TextInput
                     id="mail"
@@ -185,8 +184,7 @@ function showForm() {
                 <InputError :message="form.errors.mail" class="mt-2" />
             </div>
             <div
-                v-if="
-                    form.application_type === 'Llamada' ||
+                v-if=" form.application_type === 'Llamada' ||
                     form.application_type === 'WhatsApp'
                 "
                 class="col-span-2"
@@ -200,7 +198,7 @@ function showForm() {
                     autocomplete="phone"
                 />
                 <InputError :message="form.errors.phone" class="mt-2" />
-           <br>
+            </div>
             <div v-if="form.application_type === 'Call' || form.application_type === 'Whatsapp'" class="col-span-2">
                     <InputLabel for="phone" value="Teléfono" />
                     <TextInput
