@@ -48,7 +48,7 @@ const logout = () => {
         <Banner />
 
         <div @scroll="handleScroll" class="min-h-screen bg-gray-100">
-            <nav ref="nav" class="bg-white border-b border-gray-100">
+            <nav ref="nav" class="bg-gray-800 border-b border-red-500">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -56,12 +56,12 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    <ApplicationMark class="block h-9 w-auto fill-indigo-500" />
+                                    <ApplicationMark class="block h-9 w-auto fill-red-900" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex text-white">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>

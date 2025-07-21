@@ -13,7 +13,7 @@ import { Head, Link } from '@inertiajs/vue3'
     </div>
 
   
-    <header class="h-24 sm:h-32 flex items-center absolute top-0 right-0 z-20 w-full hidden">
+    <header class="h-24 sm:h-32 items-center absolute top-0 right-0 z-20 w-full hidden">
       <div class="container mx-auto px-6 sm:px-12 flex items-center justify-end">
         <nav class="flex items-center space-x-6">
           <Link :href="route('dashboard')" class="hidden xl:block uppercase text-gray-800 tracking-wider text-lg hover:underline">Inicio</Link>
