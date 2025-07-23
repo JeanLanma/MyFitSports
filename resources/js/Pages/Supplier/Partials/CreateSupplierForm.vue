@@ -70,7 +70,10 @@ function showForm() {
                 <InputError :message="form.errors.fiscal_name" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-3">
-                <InputLabel for="category" value="Familia" />
+                <div class="flex justify-between items-center">
+                    <InputLabel for="category" value="Familia" />
+                    <button type="button" class="text-indigo-500 underline text-xs cursor-pointer hover:bg-indigo-100 rounded duration-150 ring-indigo-600 active:ring-2 active:text-indigo-600">Agregar categoría</button>
+                </div>
                 <select
                     required
                     v-model="form.category_id"
