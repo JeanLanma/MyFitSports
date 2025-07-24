@@ -7,9 +7,12 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { useToast } from "vue-toastification";
 import { router } from "@inertiajs/vue3";
+import { ref } from "vue";
+import DialogModal from "@/Components/DialogModal.vue";
 
 const props = defineProps({
     supplier: Object,
+    categories: Array,
 });
 
 const toast = useToast();
@@ -27,6 +30,7 @@ const form = useForm({
     seal_type: props.supplier.seal_type || null,
     web_url: props.supplier.weburl || '',
 });
+
 
 const SubmitProduct = () => {
     form.post(route("supplier.store"), {
@@ -48,10 +52,92 @@ function showForm() {
 }
 
 
+const defaultCategoryValue = {
+    id: null,
+    name: '',
+    is_active: true,
+
+};
+
+const CurrentCategory = ref({ ...defaultCategoryValue });
+const ShowCreateCategoryModal = ref(false);
+
+const TriggerCreateCategory = () => {
+    CurrentCategory.value = { ...defaultCategoryValue };
+    ShowCreateCategoryModal.value = true;
+};
+
+const CreateCategory = () => {
+    const categoryForm = useForm({
+        name: CurrentCategory.value.name, 
+        is_active: CurrentCategory.value.is_active,
+    });
+
+ 
+    categoryForm.post(route("category.store"), {
+        onSuccess: () => {
+            toast.success("Categoría añadida correctamente");
+            CloseCreateCategoryModal(); 
+        },
+        onError: () => {
+            toast.error("Hubo un error al añadir la categoría.");
+        },
+    });
+};
+
+const CloseCreateCategoryModal = () => {
+    ShowCreateCategoryModal.value = false;
+    CurrentCategory.value = { ...defaultCategoryValue };
+};
+
 
 </script>
 
 <template>
+
+    <section>
+        <DialogModal
+            :show="ShowCreateCategoryModal"
+            @close="CloseCreateCategoryModal"
+        >
+            <template #title>
+                <div class="flex items-center justify-center w-full">
+                    <div class="bg-white p-6 rounded shadow w-full">
+                        <h2 class="text-xl font-semibold mb-4">
+                            Añadir categoría
+                        </h2>
+                        <p class="text-gray-700"></p>
+                        <form class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1">
+                                <InputLabel for="category" value="Familia" />
+                                <TextInput
+                                    id=""
+                                    class="w-full"
+                                    v-model="CurrentCategory.name"
+                                />
+                            </div>
+                        </form>
+                        
+                        <div class="flex justify-between">
+                            <button
+                                @click.native="CloseCreateCategoryModal"
+                                class="mt-4 bg-red-600 text-white px-2 py-2 rounded hover:bg-red-800"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                @click="CreateCategory()"
+                                class="mt-4 bg-blue-600 text-white px-2 py-2 rounded hover:bg-blue-800"
+                            >
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </DialogModal>
+    </section>
+
     <FormSection @submitted="SubmitProduct">
         <template #title> Detalles del nuevo Provedor </template>
 
@@ -72,7 +158,7 @@ function showForm() {
             <div class="col-span-6 sm:col-span-3">
                 <div class="flex justify-between items-center">
                     <InputLabel for="category" value="Familia" />
-                    <button type="button" class="text-indigo-500 underline text-xs cursor-pointer hover:bg-indigo-100 rounded duration-150 ring-indigo-600 active:ring-2 active:text-indigo-600">Agregar categoría</button>
+                    <button @click="TriggerCreateCategory()" type="button" class="text-indigo-500 underline text-xs cursor-pointer hover:bg-indigo-100 rounded duration-150 ring-indigo-600 active:ring-2 active:text-indigo-600">Agregar categoría</button>
                 </div>
                 <select
                     required
