@@ -9,11 +9,13 @@ import { useToast } from "vue-toastification";
 import { router } from "@inertiajs/vue3";
 import { ref } from "vue";
 import DialogModal from "@/Components/DialogModal.vue";
+import axios from "axios";
 
 const props = defineProps({
     supplier: Object,
     categories: Array,
 });
+console.log(props.categories);
 
 const toast = useToast();
 
@@ -54,7 +56,7 @@ function showForm() {
 
 const defaultCategoryValue = {
     id: null,
-    name: '',
+    name: null,
     is_active: true,
 
 };
@@ -73,16 +75,17 @@ const CreateCategory = () => {
         is_active: CurrentCategory.value.is_active,
     });
 
- 
-    categoryForm.post(route("category.store"), {
-        onSuccess: () => {
+    axios.post(route("api.product-categories.store"), categoryForm)
+        .then((response) => {
+            console.log(response.data);
             toast.success("Categoría añadida correctamente");
-            CloseCreateCategoryModal(); 
-        },
-        onError: () => {
+            CloseCreateCategoryModal();
+        })
+        .catch((error) => {
+            console.error(error);
             toast.error("Hubo un error al añadir la categoría.");
-        },
-    });
+        });
+        return;
 };
 
 const CloseCreateCategoryModal = () => {
@@ -111,7 +114,7 @@ const CloseCreateCategoryModal = () => {
                             <div class="grid grid-cols-1">
                                 <InputLabel for="category" value="Familia" />
                                 <TextInput
-                                    id=""
+                                    id="category_name"
                                     class="w-full"
                                     v-model="CurrentCategory.name"
                                 />
@@ -169,9 +172,7 @@ const CloseCreateCategoryModal = () => {
                     
                 >
                     <option value="null" class="bg-gray-100" disabled >-- Seleccionar categoria --</option>
-                    <option value="1">Carnes</option>
-                    <option value="2">abarrotes</option>
-                    <option value="3">Otros</option>
+                    <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
                 </select>
                 <InputError :message="form.errors.category_id" class="mt-2" />
             </div>

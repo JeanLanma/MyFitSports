@@ -19,6 +19,10 @@ const props = defineProps({
             id: null,
         }),
     },
+    categories: {
+        type: Array,
+        default: () => [],
+    },
 });
 </script>
 
@@ -34,6 +38,7 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <CreateSupplierForm
                     :supplier="props.supplier"
+                    :categories="props.categories"
                 />
             </div>
         </div>

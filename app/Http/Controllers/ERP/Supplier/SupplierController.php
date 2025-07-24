@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ERP\Supplier;
 use App\Resources\Erp\Inventory\GetProduct;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Erp\Suppliers\StoreSupplierRequest;
+use App\Resources\Erp\ProductCategories\GetProductCategories;
 use App\Resources\Erp\Supplier\DeleteSupplier;
 use App\Resources\Erp\Supplier\GetSuppliers;
 use App\Resources\Erp\Supplier\PostSupplier;
@@ -23,7 +24,17 @@ class SupplierController extends Controller
 
     public function create()
     {
-        return inertia('Supplier/SupplierCreate');
+        return inertia('Supplier/SupplierCreate', [
+            'supplier' => [
+                'id' => null,
+                'name' => '',
+                'email' => '',
+                'phone' => '',
+                'address' => '',
+                'category_id' => null,
+            ],
+            'categories' => GetProductCategories::All(),
+        ]);
     }
 
       public function store(StoreSupplierRequest $request)

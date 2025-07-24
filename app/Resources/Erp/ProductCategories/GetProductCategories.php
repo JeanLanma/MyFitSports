@@ -14,4 +14,9 @@ class GetProductCategories
         }
         return $query->paginate($limit);
     }
+
+    public static function All()
+    {
+        return ProductCategory::all();
+    }
 }

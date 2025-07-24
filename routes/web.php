@@ -77,6 +77,7 @@ Route::middleware([
     Route::get('/inventory/show', [InventoryController::class, 'index'])->name('inventory.show');
 
     Route::get('/product-categories', [ProductCategoriesController::class, 'index'])->name('product-categories.index');
+    Route::post('/api/product-categories/store', [ProductCategoriesController::class, 'apiStore'])->name('api.product-categories.store');
     
     // Suplier
     Route::get("/supplier", [SupplierController::class, "index"])->name("supplier.index");
