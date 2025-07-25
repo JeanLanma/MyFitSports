@@ -198,7 +198,7 @@ const DeleteEntry = (id) => {
                                 <select
                                     id=""
                                     class=""
-                                    v-model="CurrentProduct.application_type"
+                                    v-model="CurrentProduct.seal_type"
                                 >
                                     <option value="Pagado">
                                         RECIBIDO / PAGADO
