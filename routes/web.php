@@ -2,7 +2,6 @@
 
 use App\Exports\ProductsExport;
 use App\Exports\UsersExport;
-use App\Http\Controllers\Customers\CustomerController;
 use App\Http\Controllers\ERP\Branches\BranchesController;
 use App\Http\Controllers\ERP\Inventory\InventoryController;
 use App\Http\Controllers\Erp\Inventory\ProductCategoriesController;
@@ -52,11 +51,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-
-    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
-    Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
-    Route::get('/customers/show/{customer}', [CustomerController::class, 'show'])->name('customers.show');
-    Route::post('/customers/store', [CustomerController::class, 'store'])->name('customers.store');
 
     Route::get('/teams', [TeamsController::class, 'index'])->name('teams.index');
     Route::get('/teams/create', [TeamsController::class, 'create'])->name('teams.create');
