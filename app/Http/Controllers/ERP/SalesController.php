@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\ERP;
 
 use App\Http\Controllers\Controller;
-use App\Resources\Customers\GetCustomers;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -26,7 +25,6 @@ class SalesController extends Controller
             'status'=> 'Pagado',
         ];
         return inertia('Sales/SalesCreate', [
-            'customer' => GetCustomers::byId(1),
             'sale' => $sale,
         ]);
     }

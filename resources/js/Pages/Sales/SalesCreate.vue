@@ -1,16 +1,12 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import SectionBorder from '@/Components/SectionBorder.vue';
-import DeleteUserForm from '@/Pages/Customers/Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from '@/Pages/Customers/Partials/UpdatePasswordForm.vue';
-import ConfirmationEmailForm from '@/Pages/Customers/Partials/ConfirmationEmailForm.vue';
 import UpdateProfileInformationForm from '@/Pages/Sales/Partials/UpdateProfileInformationForm.vue';
 import ProductsList from './Partials/ProductsList.vue';
 
 
 
 const props = defineProps({
-    customer: Object,
     sale: Object,
 });
 </script>
@@ -27,8 +23,7 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div v-if="$page.props.jetstream.canUpdateProfileInformation">
                     <UpdateProfileInformationForm 
-                    :sale="props.sale"
-                    :customer="props.customer" />
+                    :sale="props.sale" />
 
                     <SectionBorder />
                 </div>
@@ -38,22 +33,6 @@ const props = defineProps({
                     <UpdatePasswordForm class="mt-10 sm:mt-0" />
 
                     <SectionBorder />
-                </div>
-
-                <div>
-                    <div>
-                        <SalesList 
-                            class="mt-10 sm:mt-0"
-                            :customers="props.customers"
-                        />
-                    </div>
-                </div>
-
-                <div>
-                    <ProductsList 
-                        class="mt-10 sm:mt-0"
-                        :customers="props.customers"
-                    />
                 </div>
 
                 <div v-if="false">

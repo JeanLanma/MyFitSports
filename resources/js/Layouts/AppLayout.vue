@@ -171,10 +171,6 @@ const logout = () => {
                                             Perfil
                                         </DropdownLink>
 
-                                        <DropdownLink :href="route('customers.show', $page.props.auth.user.id)">
-                                            Estadísticas
-                                        </DropdownLink>
-
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
                                             API Tokens
                                         </DropdownLink>
@@ -227,14 +223,8 @@ const logout = () => {
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('customers.index')" :active="route().current('customers.*')">
-                            Customers
-                        </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('teams.index')" :active="route().current('teams.*')">
                             Equipos
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('workouts.index')" :active="route().current('workouts.*')">
-                            Entrenamientos
                         </ResponsiveNavLink>
                     </div>
 
