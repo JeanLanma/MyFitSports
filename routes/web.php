@@ -9,7 +9,6 @@ use App\Http\Controllers\ERP\Inventory\ProductsController;
 use App\Http\Controllers\ERP\SalesController;
 use App\Http\Controllers\ERP\Supplier\SupplierController;
 use App\Http\Controllers\Teams\TeamsController;
-use App\Http\Controllers\Workouts\WorkoutController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
