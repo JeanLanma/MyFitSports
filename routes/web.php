@@ -57,9 +57,6 @@ Route::middleware([
     Route::get('/teams/show/{team_id?}', [TeamsController::class, 'show'])->name('teams.show');
     Route::post('/teams/store', [TeamsController::class, 'store'])->name('teams.store');
 
-    Route::get('/workouts', [WorkoutController::class, 'index'])->name('workouts.index');
-
-
     Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
     Route::get('/sales/show/{sale?}', [SalesController::class, 'show'])->name('sales.show');
     Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
