@@ -83,9 +83,9 @@ const CreateCategory = () => {
 
     axios.post(route("api.product-categories.store"), categoryForm)
         .then((response) => {
-            const newCategory = response.data
+            const newCategory = response.data.category
             newListCategory.value.push(newCategory);
-            console.log("Nuevo:", response.data);
+            console.log("Nuevo:", response.data.category);
             toast.success("Categoría añadida correctamente");
             CloseCreateCategoryModal();
         })
